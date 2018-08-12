@@ -1,0 +1,161 @@
+{include file="public/header"}
+{include file="public/public-body"}
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content">
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">Text Editors</h1>
+      <ol class="breadcrumb">
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="active">Text Editors</li>
+      </ol>
+
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+      <div class="btn-group" role="group" aria-label="...">
+        <a href="index.html" class="btn btn-light">Dashboard</a>
+        <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+        <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+        <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+      </div>
+    </div>
+    <!-- End Page Header Right Div -->
+
+  </div>
+  <!-- End Page Header -->
+
+  <!-- Start Presentation -->
+  <div class="row presentation">
+
+    <div class="col-lg-8 col-md-6 titles">
+      <span class="icon color8-bg"><i class="fa fa-pencil"></i></span>
+      <h1>Text Editors</h1>
+      <h4>Style your text with Text Editors as you wish.</h4>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <ul class="list-unstyled list">
+        <li><i class="fa fa-check"></i>Simple and Beautiful <li>
+        <li><i class="fa fa-check"></i><a href="http://jhollingworth.github.io/bootstrap-wysihtml5/" target="_blank">Bootstrap-wysihtml5</a><li>
+        <li><i class="fa fa-check"></i><a href="http://summernote.org/" target="_blank">Summernote</a><li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- End Presentation -->
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="container-padding">
+
+
+  
+  <!-- Start Row -->
+  <div class="row">
+    
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+
+        <div class="panel-title">
+          bootstrap wysihtml5
+        </div>
+
+            <div class="panel-body">
+
+              <form>
+                <p><textarea class="textarea form-control wysihtml5-textarea" placeholder="Enter text ..."  style="height:200px; width:100%;"></textarea></p>
+
+                <button class="btn btn-default">Send Post</button>
+                <button type="reset" class="btn margin-l-5">Clear</button>
+              </form>
+
+            </div>
+
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- End Row -->
+
+
+  
+  <!-- Start Row -->
+  <div class="row">
+    
+
+    <div class="col-md-12">
+      <div class="panel panel-default">
+
+        <div class="panel-title">
+          Summernote
+        </div>
+
+            <div class="panel-body">
+
+              <form>
+                <div id="summernote">Hello Summernote</div>
+                <button class="btn btn-default">Send Post</button>
+              </form>
+
+            </div>
+
+      </div>
+    </div>
+    
+
+  </div>
+  <!-- End Row -->
+
+  
+
+
+
+
+
+</div>
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+{include file="public/footer"}
+
+
+</div>
+<!-- End Content -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+{include file="public/sidepanel"}
+
+{include file="public/public-js"}
+
+<!-- ================================================
+Bootstrap WYSIHTML5
+================================================ -->
+<!-- main file -->
+<script type="text/javascript" src="__STATIC__/index/js/bootstrap-wysihtml5/wysihtml5-0.3.0.min.js"></script>
+<!-- bootstrap file -->
+<script type="text/javascript" src="__STATIC__/index/js/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+
+<!-- ================================================
+Summernote
+================================================ -->
+<script type="text/javascript" src="__STATIC__/index/js/summernote/summernote.min.js"></script>
+
+<script>
+  /* BOOTSTRAP WYSIHTML5 */
+  $('.textarea').wysihtml5();
+
+  /* SUMMERNOTE*/
+  $(document).ready(function() {
+  $('#summernote').summernote();
+});
+</script>
+
+</body>
+</html>

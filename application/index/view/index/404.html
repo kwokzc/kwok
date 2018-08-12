@@ -1,0 +1,26 @@
+{include file="public/header-http"}
+  <style type="text/css">
+    body{background: #F5F5F5;}
+  </style>
+  </head>
+  <body>
+
+    <div class="error-pages">
+
+        <img src="__STATIC__/index/img/404.png" alt="404" class="icon" width="400" height="260">
+        <h1>无法找到此页面</h1>
+        <h4>页面不存在或已被删除</h4>
+        <form>
+          <input type="text" class="form-control" placeholder="搜索页面">
+          <i class="fa fa-search"></i>
+        </form>
+
+        <div class="bottom-links">
+          <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
+          <a href="{:url('index')}" class="btn btn-light">首页</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

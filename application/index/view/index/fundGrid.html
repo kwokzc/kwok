@@ -1,0 +1,321 @@
+{include file="public/header"}
+{include file="public/public-body"}
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content">
+
+  <!-- Start Page Header -->
+  <div class="page-header">
+    <h1 class="title">基金网格交易系统</h1>
+      <ol class="breadcrumb">
+        <li><a href="index.html">仪表盘</a></li>
+        <li><a href="#">基金</a></li>
+        <li class="active">基金网格交易系统</li>
+      </ol>
+
+    <!-- Start Page Header Right Div -->
+    <div class="right">
+      <div class="btn-group" role="group" aria-label="...">
+        <a href="index.html" class="btn btn-light">Dashboard</a>
+        <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+        <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+        <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+      </div>
+    </div>
+    <!-- End Page Header Right Div -->
+
+  </div>
+  <!-- End Page Header -->
+
+  <!-- Start Presentation -->
+  <div class="row presentation">
+
+    <div class="col-lg-8 col-md-6 titles">
+      <span class="icon color10-bg"><i class="fa fa-line-chart"></i></span>
+      <h1>基金网格交易系统</h1>
+      <h4>记录每一笔基金网格交易记录，自动计算并提醒买入卖出<br>有效的解决基金网格计划中容易混乱和没有及时买入卖出</h4>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <ul class="list-unstyled list">
+        <li><i class="fa fa-check"></i>自动计算<li>
+        <li><i class="fa fa-check"></i>及时提醒<li>
+        <!-- <li><i class="fa fa-check"></i><a href="{:url('/index/index/fundgrid')}" target="_blank">基金网格交易系统</a><li> -->
+        <br>
+        <br>
+        <li><i class="fa fa-rmb"></i><a href="#" data-toggle="modal" data-target="#fund_grid_buy">网格买入</a><li>
+        <li><i class="fa fa-rmb"></i><a href="#" data-toggle="modal" data-target="#fund_grid_sell">网格卖出</a><li>
+      </ul>
+    </div>
+
+  </div>
+  <!-- End Presentation -->
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="container-padding">
+
+
+  <!-- Start Row -->
+  <div class="row">
+
+    <!-- Start Panel -->
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-title">
+          持仓交易中
+        </div>
+        <div class="panel-body table-responsive">
+
+            <table id="example0" class="table display">
+                <thead>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>成交金额</th>
+                        <th>交易数量</th>
+                        <th>交易时间</th>
+                        <th>成本单价</th>
+                        <th>实时现价</th>
+                        <th>网格幅度</th>
+                        <th>涨跌幅度</th>
+                    </tr>
+                </thead>
+             
+                <tfoot>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>成交金额</th>
+                        <th>交易数量</th>
+                        <th>交易时间</th>
+                        <th>成本单价</th>
+                        <th>实时现价</th>
+                        <th>网格幅度</th>
+                        <th>涨跌幅度</th>
+                    </tr>
+                </tfoot>
+             
+                <tbody>
+                {volist name="data1" id="vo" key="k" }
+                    <tr>
+                        <td>{$vo.jjmc}</td>
+                        <td>{$vo.cjje}元</td>
+                        <td>{$vo.jysl}</td>
+                        <td>{$vo.jysj}</td>
+                        <td>{$vo.cbdj}元</td>
+                        <td>{$vo.jjxj}元</td>
+                        <td>{$vo.wgfd}%</td>
+                        <td>{$vo.zdfd}%</td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+
+        </div>
+
+      </div>
+    </div>
+    <!-- End Panel -->
+    <!-- Start Panel -->
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-title">
+          网格已完成
+        </div>
+        <div class="panel-body table-responsive">
+
+            <table id="example1" class="table display">
+                <thead>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>成本单价</th>
+                        <th>卖出单价</th>
+                        <th>成本金额</th>
+                        <th>卖出金额</th>
+                        <th>完成时间</th>
+                        <th>网格幅度</th>
+                        <th>盈亏幅度</th>
+                        <th>盈亏金额</th>
+                    </tr>
+                </thead>
+             
+                <tfoot>
+                    <tr>
+                        <th>基金名称</th>
+                        <th>成本单价</th>
+                        <th>卖出单价</th>
+                        <th>成本金额</th>
+                        <th>卖出金额</th>
+                        <th>完成时间</th>
+                        <th>网格幅度</th>
+                        <th>盈亏幅度</th>
+                        <th>盈亏金额</th>
+                    </tr>
+                </tfoot>
+             
+                <tbody>
+                {volist name="data2" id="vo" key="k" }
+                    <tr>
+                        <td>{$vo.jjmc}</td>
+                        <td>{$vo.cbdj}元</td>
+                        <td>{$vo.mcjj}元</td>
+                        <td>{$vo.cjje}元</td>
+                        <td>{$vo.mcje}元</td>
+                        <td>{$vo.wcsh}</td>
+                        <td>{$vo.wgfd}%</td>
+                        <td>{$vo.ykfd}%</td>
+                        <td>{$vo.ykje}元</td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+
+
+        </div>
+
+      </div>
+    </div>
+    <!-- End Panel -->
+
+
+<!-- 买入卖出弹窗 -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="fund_grid_buy" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">网格计划-买入</h4>
+          </div>
+          <div class="modal-body">
+                <div class="panel-body">
+                  <form class="fieldset-form">
+                    <fieldset>
+                      <div class="form-group">
+                        <label for="example10" class="form-label">基金代码</label>
+                        <input type="text" class="form-control" id="example10">
+                      </div>
+                      <div class="form-group">
+                        <label for="example11" class="form-label">Surname</label>
+                        <input type="text" class="form-control" id="example11">
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label">Message</label>
+                        <textarea class="form-control" rows="3"></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-default">Submit</button>
+                    </fieldset>
+                  </form>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- End Moda Code -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="fund_grid_sell" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">网格计划-卖出</h4>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-default">保存</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- End Moda Code -->
+
+
+  </div>
+  <!-- End Row -->
+
+
+
+
+
+
+</div>
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+{include file="public/footer"}
+
+</div>
+<!-- End Content -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+{include file="public/sidepanel"}
+
+{include file="public/public-js"}
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="__STATIC__/index/js/datatables/datatables.min.js"></script>
+
+
+<!-- 表格搜索以及其他功能 -->
+<script>
+$(document).ready(function() {
+    $('#example0').DataTable();
+} );
+$(document).ready(function() {
+    $('#example1').DataTable();
+} );
+</script>
+
+
+
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": 2 }
+        ],
+        "order": [[ 2, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(2, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+    // Order by the grouping
+    $('#example tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === 2 && currentOrder[1] === 'asc' ) {
+            table.order( [ 2, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ 2, 'asc' ] ).draw();
+        }
+    } );
+} );
+</script>
+
+
+</body>
+</html>

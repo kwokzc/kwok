@@ -1,0 +1,185 @@
+{include file="public/header"}
+{include file="public/public-body"}
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTENT -->
+<div class="content">
+
+
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+<!-- START CONTAINER -->
+<div class="calendar-layout clearfix">
+
+  <div class="col-md-2">
+
+    <div id='external-events'>
+      <h6 class="font-title"><i class="fa fa-arrows"></i> DRAGGABLE EVENTS</h6>
+      <p>Drag into calendar</p>
+      <div class='fc-event'>Meeting with Developer Team</div>
+      <div class='fc-event'>Office Party</div>
+      <div class='fc-event'>March Invoices</div>
+      <div class='fc-event'>Call John</div>
+      <div class='fc-event'>Dinner with Team</div>
+      <div class='fc-event'>Design an iOS App</div>
+      <div class='fc-event'>Make a Sandwich</div>
+      <div class='fc-event'>Meeting with Customers</div>
+
+
+    </div>
+
+  </div>
+
+  <div class="col-md-10">
+    <div id='calendar'></div>
+  </div>
+
+    
+
+
+
+
+</div>
+<!-- END CONTAINER -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+
+{include file="public/footer"}
+
+
+
+</div>
+<!-- End Content -->
+ <!-- //////////////////////////////////////////////////////////////////////////// --> 
+
+{include file="public/sidepanel"}
+
+
+{include file="public/public-js"}
+
+
+<!-- ================================================
+jQuery UI
+================================================ -->
+<script type="text/javascript" src="js/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- ================================================
+Moment.js
+================================================ -->
+<script type="text/javascript" src="js/moment/moment.min.js"></script>
+
+<!-- ================================================
+Full Calendar
+================================================ -->
+<script type="text/javascript" src="js/full-calendar/fullcalendar.js"></script>
+
+
+<script>
+
+  $(document).ready(function() {
+    
+
+    /* initialize the external events
+    -----------------------------------------------------------------*/
+    $('#external-events .fc-event').each(function() {
+
+      // store data so the calendar knows to render an event upon drop
+      $(this).data('event', {
+        title: $.trim($(this).text()), // use the element's text as the event title
+        stick: true // maintain when user navigates (see docs on the renderEvent method)
+      });
+
+      // make the event draggable using jQuery UI
+      $(this).draggable({
+        zIndex: 999,
+        revert: true,      // will cause the event to go back to its
+        revertDuration: 0  //  original position after the drag
+      });
+
+    });
+
+
+    /* initialize the calendar
+    -----------------------------------------------------------------*/
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,basicWeek,basicDay'
+      },
+      defaultDate: '2015-02-12',
+      editable: true,
+      droppable: true, // this allows things to be dropped onto the calendar
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+        {
+          title: 'All Day Event',
+          start: '2015-02-01',
+          color: '#9A80B9'
+        },
+        {
+          title: 'Long Event',
+          start: '2015-02-07',
+          end: '2015-02-10',
+          color: '#EF4836'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2015-02-09T16:00:00'
+        },
+        {
+          id: 999,
+          title: 'Repeating Event',
+          start: '2015-02-16T16:00:00'
+        },
+        {
+          title: 'Conference',
+          start: '2015-02-3',
+          end: '2015-02-5',
+          color: '#E99844'
+        },
+        {
+          title: 'Meeting',
+          start: '2015-02-12T10:30:00',
+          end: '2015-02-12T12:30:00'
+        },
+        {
+          title: 'Lunch',
+          start: '2015-02-12T12:00:00'
+        },
+        {
+          title: 'Meeting',
+          start: '2015-02-12T14:30:00'
+        },
+        {
+          title: 'Happy Hour',
+          start: '2015-02-12T17:30:00'
+        },
+        {
+          title: 'Dinner',
+          start: '2015-02-12T20:00:00'
+        },
+        {
+          title: 'Birthday Party',
+          start: '2015-02-13T07:00:00',
+          color: '#26A65B'
+        },
+        {
+          title: 'Buy This Theme',
+          url: 'http://themeforest.net/item/kode-responsive-admin-dashboard-template-/10814250?ref=egemem',
+          start: '2015-02-22',
+          color:'#D2527F'
+        }
+      ]
+    });
+    
+  });
+
+
+</script>
+
+
+
+</body>
+</html>
