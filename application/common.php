@@ -73,46 +73,35 @@ function ttjj_today_fund_info($fund_code)
 
 
 
-
-
-/**
- * 获取新浪财经当天基金信息
- * @param int $fund_code	(基金代码)
- * @return array 			(array[])
- */
-function xlcj_today_fund_info($fund_code)
-{
-	// 获取url后获取内容
-	// 获取到的内容为jsonp格式 需要变为json格式转换为array
-	
-	$fund_info_api_url = 'http://hq.sinajs.cn/list=s_'.$fund_code;	//生成url
-	$return_fund_info_jsonp = file_get_contents($fund_info_api_url);			//获取内容
-	// return $return_fund_info_jsonp;
-    $return_fund_info_json = substr($return_fund_info_jsonp,23,-3);				//jsonp转json
-    $return_fund_info_json = explode(',', $return_fund_info_json);
-	// return (array)json_decode($return_fund_info_json);							//return json->array
-	return $return_fund_info_json;
-}
-
-
-
 /**
  * 获取新浪财经当天基金信息	【数组版】
  * @param array $fund_code	(基金代码)
  * @return array 			(array[])
  */
-function xlcj_today_fund_info_array($fund_code)
+function xlcj_today_fund_info_array($fund_id_arr)
 {
 	$res = array();
 	// 传入数组用for循环
-	for ($i=0; $i < count($fund_code); $i++) { 
-		// 获取url后获取内容
-		// 去除无用信息后 分隔为数组
-		$fund_info_api_url = 'http://hq.sinajs.cn/list=s_'.$fund_code[$i];	//生成url
-		$return_fund_info_html = file_get_contents($fund_info_api_url);	//获取内容
-    	$return_fund_info = substr($return_fund_info_html,23,-3);		//jsonp转json
-    	$return_fund_info_array = explode(',', $return_fund_info);		//分隔为数组
-    	$res[$fund_code[$i]] = $return_fund_info_array['1'];			//组合为数组
+	// for ($i=0; $i < count($fund_id_arr); $i++) { 
+	// 	// 获取url后获取内容
+	// 	// 去除无用信息后 分隔为数组
+	// 	$fund_info_api_url = 'http://hq.sinajs.cn/list=s_'.$fund_id_arr[$i];	//生成url
+	// 	$return_fund_info_html = file_get_contents($fund_info_api_url);	//获取内容
+ //    	$return_fund_info = substr($return_fund_info_html,23,-3);		//jsonp转json
+ //    	$return_fund_info_array = explode(',', $return_fund_info);		//分隔为数组
+ //    	$res[$fund_code[$i]] = $return_fund_info_array['1'];			//组合为数组
+	// }
+
+	foreach ($fund_id_arr as $key => $value) {
+		// $fund_info_api_url = 'http://hq.sinajs.cn/list=s_'.$value;	//生成url
+		// $return_fund_info_html = file_get_contents($fund_info_api_url);	//获取内容
+    	// $return_fund_info = substr($return_fund_info_html,23,-3);		//jsonp转json
+    	// $return_fund_info_array = explode(',', $return_fund_info);		//分隔为数组
+    	// $res[$key] = $return_fund_info_array['1'];			//
+    	
+		// 组合为一句：
+		// 生成url、获取html数据、字符串分隔、分隔为数组、取单价信息
+    	$res[$key] = explode(',',substr(file_get_contents('http://hq.sinajs.cn/list=s_'.$value),23,-3))['1'];
 	}
 	return $res;
 
@@ -128,7 +117,16 @@ function xlcj_today_fund_info_array($fund_code)
 	//     string(5) "0.724"
 	//   }
 	// }
+}
 
 
 
+// 用于框架内返回给JS状态信息的函数，注意需要JSON解码
+function show($status,$message,$data=array()){
+	$result = array(
+		'status' => $status,
+		'message' => $message,
+		'data' => $data,
+		);
+	exit(json_encode($result));
 }
