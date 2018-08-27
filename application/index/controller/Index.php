@@ -197,6 +197,7 @@ class Index extends \think\Controller
         foreach ($fund_grid_buy_nosell_arr as $key => $value) {
             
             $tmp = array(
+                    'mrid' => $value['buy_id'],                                                             //买入ID  1
                     'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',          //基金名称 500ETF(sh510500)
                     'cbdj' => $value['buy_dj'],                                                             //成本单价 5.146
                     'jysl' => $value['buy_sl'],                                                             //交易数量 100
@@ -205,6 +206,7 @@ class Index extends \think\Controller
                     'wgfd' => $value['grid_fudu'],                                                          //网格幅度 3%
                     'jjxj' => $fund_grid_info_all_arr[$value['fund_id']],                                   //基金现价 5.338
                     'zdfd' => (round($fund_grid_info_all_arr[$value['fund_id']]/$value['buy_dj'],3)-1)*100, //涨跌幅度 %3   
+                    'ykje' => $fund_grid_info_all_arr[$value['fund_id']]*$value['buy_sl']-$value['buy_je']-$value['buy_sxf'], //盈亏金额 16.54   
                 );
             $data[]=$tmp;
         }
@@ -215,22 +217,16 @@ class Index extends \think\Controller
     	
     	// 获取数据库
     	$fund_grid_end = $fund_db->DB_fund_grid_end();
-        var_dump($fund_grid_end);
+        // var_dump($fund_grid_end);
+
+
 		// 组合数据
-                        // <th>基金名称</th>
-                        // <th>成本单价</th>
-                        // <th>卖出单价</th>
-                        // <th>成本金额</th>
-                        // <th>卖出金额</th>
-                        // <th>完成时间</th>
-                        // <th>网格幅度</th>
-                        // <th>盈亏幅度</th>
-                        // <th>盈亏金额</th>
 		$data = array();
 
         foreach ($fund_grid_end as $key => $value) {
             
             $tmp = array(
+                    'mcid' => $value['sell_id'],                                                             //卖出ID  1
                     'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',          //基金名称 500ETF(sh510500)
                     'cbdj' => $value['buy_dj'],                                                             //成本单价 5.146
                     'mcdj' => $value['sell_mcdj'],                                                          //卖出单价 5.300
