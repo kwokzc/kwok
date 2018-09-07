@@ -183,16 +183,7 @@ class Index extends \think\Controller
 		$fund_grid_buy_nosell_arr = $fund_db->Db_fund_buy_nosell();
 		// var_dump($fund_grid_buy_nosell_arr);
 		// 组合数据为输入
-		$data = array();
-
-        // <th>基金名称</th>
-        // <th>成交金额</th>
-        // <th>交易数量</th>
-        // <th>交易时间</th>
-        // <th>成本单价</th>
-        // <th>实时现价</th>
-        // <th>网格幅度</th>
-        // <th>涨跌幅度</th>        
+		$data = array();  
 
         foreach ($fund_grid_buy_nosell_arr as $key => $value) {
             
@@ -203,10 +194,12 @@ class Index extends \think\Controller
                     'jysl' => $value['buy_sl'],                                                             //交易数量 100
                     'cjje' => $value['buy_je'],                                                             //成本金额 514.6
                     'jysj' => date("Y-m-d",strtotime($value['buy_time'])),                                  //交易时间 2018-08-01
-                    'wgfd' => $value['grid_fudu'],                                                          //网格幅度 3%
+                    'wgfd' => $value['grid_fudu'],                                                          //网格幅度 3
                     'jjxj' => $fund_grid_info_all_arr[$value['fund_id']],                                   //基金现价 5.338
-                    'zdfd' => (round($fund_grid_info_all_arr[$value['fund_id']]/$value['buy_dj'],3)-1)*100, //涨跌幅度 %3   
-                    'ykje' => $fund_grid_info_all_arr[$value['fund_id']]*$value['buy_sl']-$value['buy_je']-$value['buy_sxf'], //盈亏金额 16.54   
+                    'bcdj' => round($value['buy_dj']*((100-$value['grid_fudu'])/100),3),                    //补仓应达到的价格
+                    'mcdj' => round($value['buy_dj']*(1+$value['grid_fudu']/100),3),                        //卖出应达到的价格
+                    'zdfd' => round(($fund_grid_info_all_arr[$value['fund_id']]/$value['buy_dj']-1)*100,3), //涨跌幅度 %3   
+                    'ykje' => round($fund_grid_info_all_arr[$value['fund_id']]*$value['buy_sl']-$value['buy_je']-$value['buy_sxf'],3), //盈亏金额 16.54   
                 );
             $data[]=$tmp;
         }
@@ -242,7 +235,10 @@ class Index extends \think\Controller
 		// var_dump($data);
     	$this->assign('data2',$data);
 
-    	$this->assign('fund_info',$this->fund_info());
+        // 传入基金信息，用于展示在 买入 功能，选择基金
+        $this->assign('fund_info',$fund_db->Db_fund_info_buy());
+        // 传入未卖出交易，用于展示在 卖出 功能，选择对应的买入信息
+    	$this->assign('fund_info_sell',$fund_db->DB_fund_info_sell());
 
     	return $this->fetch();
     	
@@ -250,8 +246,8 @@ class Index extends \think\Controller
     
     public function test()
     {
-    	// $fund_db = new Fund;
-    	var_dump($this->fund_info());
+    	$fund_db = new Fund;
+    	var_dump($fund_db->DB_fund_info_sell());
     }
 
 
@@ -308,10 +304,63 @@ class Index extends \think\Controller
     	}
     }
 
+    // 基金网格计划 买入
     public function fund_buy()
     {
-    	$data = $_POST['data'];
-    	var_dump($data);
+        // 封装数组
+        $data = [
+            'fund_id'   => $_POST['fund_id'],
+            'buy_dj'    => $_POST['buy_dj'],
+            'buy_sl'    => $_POST['buy_sl'],
+            'buy_je'    => round($_POST['buy_dj']*$_POST['buy_sl'],3),
+            'buy_time'  => date("Y-m-d H:i:s",strtotime($_POST['buy_time'])),
+            'buy_sxf'   => $_POST['buy_sxf'],
+            'grid_fudu' => $_POST['grid_fudu'],
+        ];
+
+        // return show(1,'debug',$data);
+
+        // 写入数据库
+        
+        // 实例化
+        $db = new Fund;
+        // 成功返回 1 失败返回0
+        if ($db->DB_fund_grid_buy($data)) {
+            return show(1,'添加成功！');
+        }else{
+            return show(0,'添加失败！');
+        }
+    }
+
+    // 基金网格计划 卖出
+    public function fund_sell()
+    {
+        // 封装数组
+        $data = [
+            'buy_id'     => $_POST['buy_id'],
+            'sell_mcdj'  => $_POST['sell_mcdj'],
+            'sell_mcsl'  => $_POST['sell_mcsl'],
+            'sell_mcje'  => round($_POST['sell_mcdj']*$_POST['sell_mcsl'],3),
+            'sell_time'  => date("Y-m-d H:i:s",strtotime($_POST['sell_time'])),
+            'sell_sxf'   => $_POST['sell_sxf'],
+            'sell_ykfd'  => 0,
+            'sell_ykje'  => 0,
+        ];
+
+
+
+        // return show(1,'debug',$data);
+
+        // 写入数据库
+        
+        // 实例化
+        $db = new Fund;
+        // // 成功返回 1 失败返回0
+        if ($db->DB_fund_grid_sell($data)) {
+            return show(1,'添加成功！');
+        }else{
+            return show(0,'添加失败！');
+        }
     }
 
 }

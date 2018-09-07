@@ -80,6 +80,8 @@
                         <th>交易时间</th>
                         <th>成本单价</th>
                         <th>实时现价</th>
+                        <th>补仓价格</th>
+                        <th>卖出价格</th>
                         <th>网格幅度</th>
                         <th>涨跌幅度</th>
                         <th>盈亏金额</th>
@@ -95,6 +97,8 @@
                         <th>交易时间</th>
                         <th>成本单价</th>
                         <th>实时现价</th>
+                        <th>补仓价格</th>
+                        <th>卖出价格</th>
                         <th>网格幅度</th>
                         <th>涨跌幅度</th>
                         <th>盈亏金额</th>
@@ -111,6 +115,8 @@
                         <td>{$vo.jysj}</td>
                         <td>{$vo.cbdj}元</td>
                         <td>{$vo.jjxj}元</td>
+                        <td>{$vo.bcdj}元</td>
+                        <td>{$vo.mcdj}元</td>
                         <td>{$vo.wgfd}%</td>
                         <td>{$vo.zdfd}%</td>
                         <td>{$vo.ykje}</td>
@@ -207,7 +213,7 @@
                     <div class="form-group">
                       <label class="col-sm-4 control-label form-label">选择基金</label>
                       <div class="col-sm-8">
-                        <select class="selectpicker" name="fund_buy_id">
+                        <select class="selectpicker" name="fund_id">
                         {volist name="fund_info" id="vo"}
                             <option value = "{$key}">{$vo}</option>
                         {/volist}
@@ -221,16 +227,16 @@
                       <div class="form-group">
                         <label for="example11" class="form-label">交易数量</label>
                         <input type="text" class="form-control" name="fund_buy_sl">
-                      </div>
+                      </div><!-- 
                       <div class="form-group">
                         <label for="example12" class="form-label">成本金额</label>
                         <input type="text" class="form-control" name="fund_buy_je">
-                      </div>
+                      </div> -->
                       <div class="form-group">
                         <label for="example13" class="form-label">交易时间</label>
                        <div class="input-prepend input-group">
                          <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                         <input type="text" name="fund_buy_time" class="form-control" value="{php}echo date("m/d/Y");{/php}"/> 
+                         <input type="text" id="date-picker" name="fund_buy_time" class="form-control" value="{php}echo date("m/d/Y");{/php}"/> 
                        </div>
                       </div>
                       <div class="form-group">
@@ -267,41 +273,41 @@
                     <div class="form-group">
                       <label class="col-sm-4 control-label form-label">选择买入时交易</label>
                       <div class="col-sm-8">
-                        <select class="selectpicker" id="select_fund">
-                        {volist name="fund_info" id="vo"}
-                            <option value = "{$key}">{$vo}</option>
+                        <select class="selectpicker" name="buy_id">
+                        {volist name="fund_info_sell" id="vo"}
+                            <option value="{$key}">{$key}：{$vo}</option>
                         {/volist}
                         </select>                  
                       </div>
                     </div>
                       <div class="form-group">
                         <label for="example10" class="form-label">卖出单价</label>
-                        <input type="text" class="form-control" name="mcdj">
+                        <input type="text" class="form-control" name="fund_sell_dj">
                       </div>
                       <div class="form-group">
                         <label for="example11" class="form-label">卖出数量</label>
-                        <input type="text" class="form-control" name="mcsl">
-                      </div>
+                        <input type="text" class="form-control" name="fund_sell_sl">
+                      </div><!-- 
                       <div class="form-group">
                         <label for="example12" class="form-label">卖出金额</label>
-                        <input type="text" class="form-control" name="mcje">
-                      </div>
+                        <input type="text" class="form-control" name="fund_sell_je">
+                      </div> -->
                       <div class="form-group">
                         <label for="example13" class="form-label">卖出时间</label>
                        <div class="input-prepend input-group">
                          <span class="add-on input-group-addon"><i class="fa fa-calendar"></i></span>
-                         <input type="text" id="date-picker" class="form-control" value="{php}echo date("m/d/Y");{/php}"/> 
+                         <input type="text" id="date-picker" name="fund_sell_time" class="form-control" value="{php}echo date("m/d/Y");{/php}"/> 
                        </div>
-                      </div>
+                      </div><!-- 
                       <div class="form-group">
                         <label for="example14" class="form-label">盈亏幅度</label>
-                        <input type="text" class="form-control" name="ykfd">
-                      </div>
+                        <input type="text" class="form-control" name="fund_sell_fd">
+                      </div> -->
                       <div class="form-group">
                         <label for="example15" class="form-label">手续费</label>
-                        <input type="text" class="form-control" name="mcsxf">
+                        <input type="text" class="form-control" name="fund_sell_sxf">
                       </div>
-                        <button type="submit" class="btn btn-default" data-dismiss="modal">提交</button>
+                        <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="fund.sell();">提交</button>
                     </fieldset>
                   </form>
                 </div>
@@ -334,7 +340,7 @@
                       </div>
                       <div class="form-group">
                         <label for="example12" class="form-label">股市地区</label>
-                        <input type="text" class="form-control" name="fund_add_gsdq" value="sh">
+                        <input type="text" class="form-control" name="fund_add_gsdq"  placeholder="上海sh/深圳sz，留空默认sh">
                       </div>
                       <div class="form-group">
                         <label for="example13" class="form-label">查询API</label>
@@ -374,7 +380,6 @@
 {include file="public/public-js-add"}
 
 <script>
-fund.add_select_option();
 </script>
 
 <!-- 基金页面所需JS -->
