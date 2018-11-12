@@ -84,7 +84,7 @@
                         <th>卖出价格</th>
                         <th>网格幅度</th>
                         <th>涨跌幅度</th>
-                        <th>盈亏金额</th>
+                        <th>盈亏金额(元)</th>
                     </tr>
                 </thead>
              
@@ -101,7 +101,7 @@
                         <th>卖出价格</th>
                         <th>网格幅度</th>
                         <th>涨跌幅度</th>
-                        <th>盈亏金额</th>
+                        <th>盈亏金额(元)</th>
                     </tr>
                 </tfoot>
              
@@ -135,10 +135,28 @@
     <div class="col-md-12">
       <div class="panel panel-default">
         <div class="panel-title">
-          网格已完成
+          网格已完成 ---【当前已完成网格盈亏：
+          {php}
+            $sum=0;
+            foreach($data2 as $value){
+              $sum+=$value['ykje'];
+            }
+            echo $sum;{/php}
+          元；全部网格盈亏：
+          {php}
+            $sum=0;
+            //未完成网格合计盈亏金额
+            foreach($data1 as $value){
+              $sum+=$value['ykje'];
+            }
+            //已完成网格合计盈亏金额
+            foreach($data2 as $value){
+              $sum+=$value['ykje'];
+            }
+            echo round($sum,3);{/php}
+          元】
         </div>
         <div class="panel-body table-responsive">
-
             <table id="example1" class="table display">
                 <thead>
                     <tr>
@@ -151,7 +169,7 @@
                         <th>完成时间</th>
                         <th>网格幅度</th>
                         <th>盈亏幅度</th>
-                        <th>盈亏金额</th>
+                        <th>盈亏金额(元)</th>
                     </tr>
                 </thead>
              
@@ -166,7 +184,7 @@
                         <th>完成时间</th>
                         <th>网格幅度</th>
                         <th>盈亏幅度</th>
-                        <th>盈亏金额</th>
+                        <th>盈亏金额(元)</th>
                     </tr>
                 </tfoot>
              
@@ -187,8 +205,6 @@
                 {/volist}
                 </tbody>
             </table>
-
-
         </div>
 
       </div>
