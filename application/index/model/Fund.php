@@ -109,15 +109,11 @@ class Fund extends Model
 		// 写入sell卖出表
 		if (Db::table('fund_grid_sell')->insert($data)) {
 			// sell表写入成功后写buy表的sell_id字段
-			// 先获取最后插入的id
+			// 使用getLastInsID获取最后插入的id
 			$lastID = Db::table('fund_grid_sell')->getLastInsID();
 			// 更新buy表的sell_id字段
-			if (Db::table('fund_grid_buy')->update(['sell_id' => $lastID,'id'=>$info['buy_id']])) {
-				// 成功返回1 其他全返回0
-				return 1;
-			}else{
-				return 0;
-			}
+			return Db::table('fund_grid_buy')
+					->update(['sell_id' => $lastID,'buy_id'=>$info['buy_id']]);
 		}else{
 			return 0;
 		}
