@@ -106,7 +106,7 @@
                 </tfoot>
              
                 <tbody>
-                {volist name="data1" id="vo" key="k" }
+                {volist name="position" id="vo" key="k" }
                     <tr>
                         <td>{$vo.mrid}</td>
                         <td>{$vo.jjmc}</td>
@@ -138,7 +138,7 @@
           网格已完成 ---【当前已完成网格盈亏：
           {php}
             $sum=0;
-            foreach($data2 as $value){
+            foreach($completed as $value){
               $sum+=$value['ykje'];
             }
             echo $sum;{/php}
@@ -146,11 +146,11 @@
           {php}
             $sum=0;
             //未完成网格合计盈亏金额
-            foreach($data1 as $value){
+            foreach($position as $value){
               $sum+=$value['ykje'];
             }
             //已完成网格合计盈亏金额
-            foreach($data2 as $value){
+            foreach($completed as $value){
               $sum+=$value['ykje'];
             }
             echo round($sum,3);{/php}
@@ -189,7 +189,7 @@
                 </tfoot>
              
                 <tbody>
-                {volist name="data2" id="vo" key="k" }
+                {volist name="completed" id="vo" key="k" }
                     <tr>
                         <td>{$vo.mcid}</td>
                         <td>{$vo.jjmc}</td>

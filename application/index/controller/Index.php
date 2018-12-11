@@ -174,66 +174,110 @@ class Index extends \think\Controller
     	// 实例化基金DB操作
     	$fund_db = new Fund;
 
-    	// 交易中
+    	// 持仓交易中
     	
     	// 获取自选基金的最新价格
 		$fund_grid_info_all_arr = xlcj_today_fund_info_array($fund_db->DB_fund_info_all());
 
 		// 获取基金网格交易暂未卖出的交易 sell_id = 0
 		$fund_grid_buy_nosell_arr = $fund_db->Db_fund_buy_nosell();
-		// var_dump($fund_grid_buy_nosell_arr);
-		// 组合数据为输入
-		$data = array();  
 
+        // 循环 记录持仓信息
         foreach ($fund_grid_buy_nosell_arr as $key => $value) {
-            
-            $tmp = array(
-                    'mrid' => $value['buy_id'],                                                             //买入ID  1
-                    'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',          //基金名称 500ETF(sh510500)
-                    'cbdj' => $value['buy_dj'],                                                             //成本单价 5.146
-                    'jysl' => $value['buy_sl'],                                                             //交易数量 100
-                    'cjje' => $value['buy_je'],                                                             //成本金额 514.6
-                    'jysj' => date("Y-m-d",strtotime($value['buy_time'])),                                  //交易时间 2018-08-01
-                    'wgfd' => $value['grid_fudu'],                                                          //网格幅度 3
-                    'jjxj' => $fund_grid_info_all_arr[$value['fund_id']],                                   //基金现价 5.338
-                    'bcdj' => round($value['buy_dj']*((100-$value['grid_fudu'])/100),3),                    //补仓应达到的价格
-                    'mcdj' => round($value['buy_dj']*(1+$value['grid_fudu']/100),3),                        //卖出应达到的价格
-                    'zdfd' => round(($fund_grid_info_all_arr[$value['fund_id']]/$value['buy_dj']-1)*100,3), //涨跌幅度 %3   
-                    'ykje' => round($fund_grid_info_all_arr[$value['fund_id']]*$value['buy_sl']-$value['buy_je']-$value['buy_sxf'],3), //盈亏金额 16.54   
+
+            // 持仓中网格信息数组
+            $position[] = array(
+
+                    // 买入ID 对应fund_gruid_buy表中的id -> 1
+                    'mrid' => $value['buy_id'], 
+
+                    // 基金名称 对应fund_info表中的fund_name+fund_code -> 500ETF(sh510500)
+                    'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',
+
+                    // 成本单价 对应fund_grid_buy表中的buy_dj -> 5.146
+                    'cbdj' => round($value['buy_dj'],3),
+
+                    // 交易数量 对应fund_grid_buy表中的buy_sl -> 100
+                    'jysl' => $value['buy_sl'],
+
+                    // 成交金额 对应fund_grid_buy表中的buy_je -> 514.6
+                    'cjje' => round($value['buy_je'],3),
+
+                    // 交易时间 对应fund_grid_buy表中的buy_time -> 2018-08-01
+                    'jysj' => date("Y-m-d",strtotime($value['buy_time'])),
+
+                    // 网格幅度 对应fund_grid_buy表中的buy_fudu -> 3
+                    'wgfd' => $value['grid_fudu'],
+
+                    // 基金现价 从获取自选基金的最新价格中获取当前fund_id的当前价格 -> 5.338
+                    'jjxj' => $fund_grid_info_all_arr[$value['fund_id']],
+
+                    // 补仓单价 计算买入单价*(100-幅度)/100 取三位小数 (未计算手续费损耗)
+                    'bcdj' => round($value['buy_dj']*((100-$value['grid_fudu'])/100),3),
+
+                    // 卖出单价 计算买入价格*(100+幅度)/100 取三位小数 (未计算手续费损耗)
+                    'mcdj' => round($value['buy_dj']*(1+$value['grid_fudu']/100),3),
+
+                    // 涨跌幅度 (基金现价/买入单价-1)*100得出百分数 取三位小数 得出当前涨跌幅度
+                    'zdfd' => round(($fund_grid_info_all_arr[$value['fund_id']]/$value['buy_dj']-1)*100,3),
+
+                    // 盈亏金额 (基金现价*买入数量)-买入金额-手续费 取三位小数 得出当前盈亏金额
+                    'ykje' => round($fund_grid_info_all_arr[$value['fund_id']]*$value['buy_sl']-$value['buy_je']-$value['buy_sxf'],3), 
                 );
-            $data[]=$tmp;
         }
-		// var_dump($data);
-    	$this->assign('data1',$data);
+
+		// var_dump($position);
+
+        // 将持仓中的网格信息赋值到前端模板
+    	$this->assign('position',$position);
+
+
+
 
     	// 交易完成
     	
-    	// 获取数据库
+    	// 从数据库获取已完成的网格
     	$fund_grid_end = $fund_db->DB_fund_grid_end();
-        // var_dump($fund_grid_end);
 
-
-		// 组合数据
-		$data = array();
-
+        // 循环 记录已完成网格信息
         foreach ($fund_grid_end as $key => $value) {
             
-            $tmp = array(
-                    'mcid' => $value['sell_id'],                                                             //卖出ID  1
-                    'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',          //基金名称 500ETF(sh510500)
-                    'cbdj' => $value['buy_dj'],                                                             //成本单价 5.146
-                    'mcdj' => $value['sell_mcdj'],                                                          //卖出单价 5.300
-                    'cbje' => $value['buy_je'],                                                             //成本金额 514.6
-                    'mcje' => $value['sell_mcje'],                                                          //卖出金额 530.0
-                    'wcsh' => date("Y-m-d",strtotime($value['sell_time'])),                                 //完成时间 2018-08-01
-                    'wgfd' => $value['grid_fudu'],                                                          //网格幅度 3%
-                    'ykfd' => (round(($value['sell_mcje']-$value['buy_sxf']-$value['sell_sxf'])/$value['buy_je'],3)-1)*100, //盈亏幅度 3.3%
-                    'ykje' => $value['sell_mcje']-$value['buy_je']-$value['buy_sxf']-$value['sell_sxf'],    //盈亏金额 5.338
+            // 已完成网格信息数组
+            $completed[] = array(
+
+                    // 卖出ID 对应fund_gruid_sell表中的id -> 1
+                    'mcid' => $value['sell_id'],
+
+                    // 基金名称 对应fund_info表中的fund_name+fund_code -> 500ETF(sh510500)
+                    'jjmc' => $value['fund_name'].'('.$value['fund_gsdq'].$value['fund_code'].')',
+
+                    // 成本单价 对应fund_grid_buy表中的buy_dj -> 5.146
+                    'cbdj' => round($value['buy_dj'],3),
+
+                    // 卖出单价 对应fund_grid_sell表中的sell_mcdj -> 5.300
+                    'mcdj' => round($value['sell_mcdj'],3),
+
+                    // 成交金额 对应fund_grid_buy表中的buy_je -> 514.6
+                    'cbje' => round($value['buy_je'],3),
+
+                    // 卖出金额 对应fund_grid_sell表中的sell_mcje -> 530.0
+                    'mcje' => round($value['sell_mcje'],3),
+
+                    // 完成时间 对应fund_grid_sell表中的sell_time -> 2018-08-01
+                    'wcsh' => date("Y-m-d",strtotime($value['sell_time'])),
+
+                    // 网格幅度 对应fund_grid_buy表中的buy_fudu -> 3
+                    'wgfd' => $value['grid_fudu'],
+
+                    // 盈亏幅度 (卖出金额-买卖手续费)/买入金额 去三位小数 -1 乘以100百分化 -> 3.3
+                    'ykfd' => (round(($value['sell_mcje']-$value['buy_sxf']-$value['sell_sxf'])/$value['buy_je'],3)-1)*100,
+
+                    // 盈亏金额 卖出金额-买入金额-买卖手续费 -> 5.338
+                    'ykje' => round($value['sell_mcje']-$value['buy_je']-$value['buy_sxf']-$value['sell_sxf'],3),
                 );
-            $data[]=$tmp;
         }
 		// var_dump($data);
-    	$this->assign('data2',$data);
+    	$this->assign('completed',$completed);
 
         // 传入基金信息，用于展示在 买入 功能，选择基金
         $this->assign('fund_info',$fund_db->Db_fund_info_buy());
