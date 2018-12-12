@@ -276,35 +276,42 @@ class Index extends \think\Controller
                     'ykje' => round($value['sell_mcje']-$value['buy_je']-$value['buy_sxf']-$value['sell_sxf'],3),
                 );
         }
-		// var_dump($data);
+
+		// var_dump($completed);
+        
+        // 将已完成的网格信息赋值到前端模板
     	$this->assign('completed',$completed);
 
-        // 传入基金信息，用于展示在 买入 功能，选择基金
+        // 将自选基金信息赋值到前端模板，用于在 买入 功能时选择基金
         $this->assign('fund_info',$fund_db->Db_fund_info_buy());
-        // 传入未卖出交易，用于展示在 卖出 功能，选择对应的买入信息
+
+        // 将未完成网格基金信息赋值到前端模板，用于在 卖出 功能时选择对应的买入信息
     	$this->assign('fund_info_sell',$fund_db->DB_fund_info_sell());
 
     	return $this->fetch();
     	
     }
     
-    public function test()
-    {
-    	$fund_db = new Fund;
-    	var_dump($fund_db->DB_fund_info_sell());
-    }
-
-
-
-    // 用于处理fundgird页面中添加基金的表单数据
+    // 用于处理fundgird页面中 添加 自选基金 的表单数据
     // 采用ajax添加数据库
     public function fund_add()
     {
     	$db = new Fund;
+
     	// 获取POST数据
+        
+        // 基金代码
 		$fund_code = $_POST['fund_code'];
+
+        // 基金名称
 		$fund_name = $_POST['fund_name'];
+
+        // 股市地区
+        // sh:上海、sz:深圳
 		$fund_gsdq = $_POST['fund_gsdq'];
+
+        // api查询接口
+        // xlcj:新浪财经
 		$fund_api  = $_POST['fund_api'];
 
 		// 检查不能为空
@@ -321,8 +328,8 @@ class Index extends \think\Controller
             return show(0,'基金接口不能为空！');
         }
 
-        // 封装数据
-        $data = [
+        // 封装数据为数组
+        $fund_add = [
         	'fund_code' => $fund_code,
         	'fund_name' => $fund_name,
         	'fund_gsdq' => $fund_gsdq,
@@ -330,28 +337,17 @@ class Index extends \think\Controller
         ];
 
         // 成功返回 1 失败返回0
-        if ($db->DB_fund_add($data)) {
+        if ($db->DB_fund_add($fund_add)) {
         	return show(1,'添加成功！');
         }else{
         	return show(0,'添加失败！');
         }
     }
 
-    public function fund_info()
-    {
-    	$db = new Fund;
-    	$res = $db->Db_fund_info_buy();
-    	if ($res) {
-    		return $res;
-    	}else{
-    		return 0;
-    	}
-    }
-
     // 基金网格计划 买入
     public function fund_buy()
     {
-        // 封装数组
+        // 封装前端传入的POST买入信息为数组
         $data = [
             'fund_id'   => $_POST['fund_id'],
             'buy_dj'    => $_POST['buy_dj'],
@@ -362,7 +358,6 @@ class Index extends \think\Controller
             'grid_fudu' => $_POST['grid_fudu'],
         ];
 
-        // return show(1,'debug',$data);
 
         // 写入数据库
         
@@ -393,7 +388,6 @@ class Index extends \think\Controller
 
 
 
-        // return show(1,'debug',$data);
 
         // 写入数据库
         
