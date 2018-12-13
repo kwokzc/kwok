@@ -395,7 +395,16 @@
 {include file="public/public-js"}
 {include file="public/public-js-add"}
 
-<script>
+<!-- datatables.min.js 设置 -->
+<script type="text/javascript">
+
+  //排序设置
+  var aasort = [
+          [0, "desc"]
+        ];
+
+  //默认显示长度
+  var aadisplaylength = 20;
 </script>
 
 <!-- 基金页面所需JS -->
@@ -424,7 +433,6 @@ Bootstrap Date Range Picker
 <script type="text/javascript" src="__STATIC__/index/js/date-range-picker/daterangepicker.js"></script>
 
 
-
 <!-- 表格搜索以及其他功能 -->
 <script>
 $(document).ready(function() {
@@ -444,7 +452,7 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- Basic Single Date Picker -->
+<!-- 网格买入填写信息时的时间框 -->
 <script type="text/javascript">
 $(document).ready(function() {
   $('#date-picker').daterangepicker({ singleDatePicker: true }, function(start, end, label) {
