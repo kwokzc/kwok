@@ -1,7 +1,12 @@
 <?php
 namespace app\index\controller;
 use think\Config;
+
+// 引入基金相关模型
 use app\index\model\Fund;
+// 引入Tushare模型
+use app\index\model\Tushare;
+
 class Index extends \think\Controller
 {
     public function index()
@@ -167,6 +172,20 @@ class Index extends \think\Controller
     public function widgets()
     {
     	return $this->fetch('widgets');
+    }
+    
+    public function tusharetest()
+    {
+        $tushare = new Tushare;
+        $data=array('api_name'=>'index_daily','params'=>['ts_code'=>'000001.SH',],'fields'=>[]);
+        $res = $tushare->tushareHttpApi($data);
+        // var_dump($res);
+        
+        $this->assign('data',$res);
+
+        // var_dump($data);
+        return $this->fetch();
+
     }
     
     public function fundgrid()
