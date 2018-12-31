@@ -259,10 +259,11 @@
                         <label for="example14" class="form-label">网格幅度</label>
                         <input type="text" class="form-control" name="fund_buy_fd" value="3">
                       </div>
-                      <div class="form-group">
+                      <!-- 手续费由Fund.js自动计算 交易额*万2.5  两位小数 四舍五入-->
+                      <!-- <div class="form-group">
                         <label for="example15" class="form-label">手续费</label>
                         <input type="text" class="form-control" name="fund_buy_sxf">
-                      </div>
+                      </div> -->
                         <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="fund.buy();">提交</button>
                     </fieldset>
                   </form>
@@ -319,10 +320,12 @@
                         <label for="example14" class="form-label">盈亏幅度</label>
                         <input type="text" class="form-control" name="fund_sell_fd">
                       </div> -->
-                      <div class="form-group">
+                      
+                      <!-- 手续费由Fund.js自动计算 交易额*万2.5  两位小数 四舍五入-->
+                      <!-- <div class="form-group">
                         <label for="example15" class="form-label">手续费</label>
                         <input type="text" class="form-control" name="fund_sell_sxf">
-                      </div>
+                      </div> -->
                         <button type="submit" class="btn btn-default" data-dismiss="modal" onclick="fund.sell();">提交</button>
                     </fieldset>
                   </form>

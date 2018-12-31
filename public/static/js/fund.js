@@ -49,16 +49,21 @@ var fund = {
 		},'JSON');
 
 	},
+	// 基金网格计划 买入JS
 	buy:function(){
 		// 获取购买信息
 		var fund_id    = $('select[name="fund_id"]').val();
 		var buy_dj     = $('input[name="fund_buy_dj"]').val();
 		var buy_sl     = $('input[name="fund_buy_sl"]').val();
-		// var buy_je     = $('input[name="fund_buy_je"]').val();
-		// var buy_je     = buy_dj*buy_sl;
 		var buy_time   = $('input[name="fund_buy_time"]').val();
 		var grid_fudu  = $('input[name="fund_buy_fd"]').val();
-		var buy_sxf    = $('input[name="fund_buy_sxf"]').val();
+		var buy_sxf    = buy_dj * buy_sl * 0.00025;
+
+		if (buy_sxf < 0.1) {
+			buy_sxf = 0.1;
+		}else{
+			buy_sxf = buy_sxf.toFixed(2);
+		}
 
 		if(!fund_id){
 			dialog.msg('请选择正确的基金！');
@@ -99,16 +104,20 @@ var fund = {
 			 }
 		},'JSON');
 	},
+	// 基金网格计划 卖出JS
 	sell:function(){
 		// 获取卖出信息
 		var buy_id    = $('select[name="buy_id"]').val();
-		var sell_mcdj     = $('input[name="fund_sell_dj"]').val();
-		var sell_mcsl     = $('input[name="fund_sell_sl"]').val();
-		// var sell_je     = $('input[name="fund_buy_je"]').val();
-		// var sell_je     = buy_dj*buy_sl;
-		var sell_time   = $('input[name="fund_sell_time"]').val();
-		// var grid_fudu  = $('input[name="fund_buy_fd"]').val();
-		var sell_sxf    = $('input[name="fund_sell_sxf"]').val();
+		var sell_mcdj = $('input[name="fund_sell_dj"]').val();
+		var sell_mcsl = $('input[name="fund_sell_sl"]').val();
+		var sell_time = $('input[name="fund_sell_time"]').val();
+		var sell_sxf  = sell_mcdj * sell_mcsl * 0.00025;
+
+		if (sell_sxf < 0.1) {
+			sell_sxf = 0.1;
+		}else{
+			sell_sxf = sell_sxf.toFixed(2);
+		}
 
 		if(!buy_id){
 			dialog.msg('请选择正确的对应买入ID！');
