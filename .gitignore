@@ -1,2 +1,3 @@
 #屏蔽Mac文件夹样式文件
 .DS_Store
+.idea/
