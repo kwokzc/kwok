@@ -32,4 +32,8 @@ return [
     'taglib_begin' => '{',
     // 标签库标签结束标记
     'taglib_end'   => '}',
+    //开启全局模板布局
+    'layout_on'    => false,
+    //全局模板布局文件名
+    'layout_name'  => 'layout',
 ];
