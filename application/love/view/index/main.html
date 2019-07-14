@@ -1,0 +1,19 @@
+<!--内容-->
+<section id="cd-timeline" class="cd-container">
+    {volist name="list" id="vo"}
+    <div class="cd-timeline-block">
+        <div class="cd-timeline-img cd-text">
+            <img src="__LOVE-INDEX__/img/cd-icon-text.svg" alt="text">
+        </div>
+        <div class="cd-timeline-content-{$vo.user_id}">
+            <h2>{$vo.title}</h2>
+            <p>{$vo.content|raw}</p>
+            <span style="top:30px;font-size: 1.2em;" class="cd-date"><i class="fa fa-clock-o" aria-hidden="true"></i> {$vo.time}</span>
+        </div>
+    </div>
+    {/volist}
+</section>
+
+<div id="render">
+    {$list->render()}
+</div>

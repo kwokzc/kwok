@@ -32,8 +32,20 @@ return [
     'taglib_begin' => '{',
     // 标签库标签结束标记
     'taglib_end'   => '}',
+
     //开启全局模板布局
     'layout_on'    => false,
     //全局模板布局文件名
     'layout_name'  => 'layout',
+
+    //模板替换
+    'tpl_replace_string'  =>  [
+        '__LOVE__'    =>'/static/love',
+        '__LOVE-INDEX__'    =>'/static/love/index',
+        '__LOVE-ADMIN__'    =>'/static/love/admin',
+        '__STATIC__'=>'/static',
+        '__JS__' => '/static/js',
+        '__CSS__' => '/static/css',
+        '__LOVE-TITLE__' => '我们的爱',
+    ]
 ];
