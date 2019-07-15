@@ -36,7 +36,7 @@ return [
     //开启全局模板布局
     'layout_on'    => false,
     //全局模板布局文件名
-    'layout_name'  => 'layout',
+    'layout_name'  => 'layout/base',
 
     //模板替换
     'tpl_replace_string'  =>  [

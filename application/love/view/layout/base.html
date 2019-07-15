@@ -1,0 +1,33 @@
+{include file="layout/header" /}
+<body>
+<div id="wrapper">
+    <!--导航开始 nav-->
+    {include file="layout/nav" /}
+    <!--导航结束 nav-->
+    <div id="page-wrapper">
+        <div class="header">
+            <h1 class="page-header">
+                {block name="title"}标题{/block}
+                <small>{block name="$subtitle"}副标题{/block}</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="index.html">后台首页</a></li>
+                <li class="active">{block name="title"}标题{/block}</li>
+            </ol>
+        </div>
+        <div id="page-inner">
+            <div class="row">
+                <!-- 主要内容 -->
+                {block name="main"}主内容{/block}
+                <!-- 主要内容结束 -->
+            </div>
+        </div>
+    </div>
+    {include file="layout/footer" /}
+
+    {include file="layout/public-js" /}
+    <!--  自定义JS  -->
+    {block name="js"}{/block}
+</div>
+</body>
+</html>

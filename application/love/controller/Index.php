@@ -17,7 +17,6 @@ class Index extends Base
 {
     public function index()
     {
-
         if (Session::get('user_id')==1 or Session::get('user_id')==2){
             $res = LoveDb::where('status',1)
                 ->where('time','>',0)

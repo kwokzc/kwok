@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost:3306
--- 生成日期： 2019-07-14 23:30:54
--- 服务器版本： 5.7.23
--- PHP 版本： 7.2.10
+-- 生成日期： 2019-07-15 17:03:28
+-- 服务器版本： 5.6.38
+-- PHP 版本： 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -85,12 +85,21 @@ INSERT INTO `kwok_love` (`id`, `user_id`, `title`, `content`, `location`, `type_
 CREATE TABLE `kwok_love_type` (
   `id` int(11) NOT NULL COMMENT '时间线类型id主键',
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类型名称',
-  `src` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sort` int(11) NOT NULL COMMENT '排序',
+  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `div_background` char(7) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圆形div背景颜色',
+  `i_color` char(7) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'i标签color',
   `status` int(4) NOT NULL DEFAULT '1' COMMENT '状态;1为启用,0为禁用',
   `user_id` int(4) NOT NULL COMMENT '用户表id',
   `create_time` int(10) NOT NULL COMMENT '创建时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='时间线类型表';
+
+--
+-- 转存表中的数据 `kwok_love_type`
+--
+
+INSERT INTO `kwok_love_type` (`id`, `name`, `type`, `div_background`, `i_color`, `status`, `user_id`, `create_time`) VALUES
+(1, '心', '<i class=\"fa fa-heart fa-5x\" style=\"color:red;\" aria-hidden=\"true\"></i>', '#ff5a5a', '#fff', 1, 1, 1),
+(2, '笑脸', '<i class=\"fa fa-smile-o\" style=\"color:red;\" aria-hidden=\"true\"></i>', '', '', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -241,7 +250,7 @@ ALTER TABLE `kwok_love`
 -- 使用表AUTO_INCREMENT `kwok_love_type`
 --
 ALTER TABLE `kwok_love_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '时间线类型id主键';
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '时间线类型id主键', AUTO_INCREMENT=3;
 
 --
 -- 使用表AUTO_INCREMENT `kwok_user`

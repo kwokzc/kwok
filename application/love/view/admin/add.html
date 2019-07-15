@@ -1,153 +1,14 @@
-{include file="public/header" /}
-<!--导航 nav-->
-{include file="public/nav" /}
+{extend name="layout/base" /}
 
-<div id="page-wrapper">
-    <div class="header">
-        <h1 class="page-header">添加新纪录</h1>
-        <ol class="breadcrumb">
-            <li><a href="#">首页</a></li>
-            <li class="active">添加新记录</li>
-        </ol>
-    </div>
+{block name="title"}
+{$title|default="添加新纪录"}
+{/block}
 
-    <div id="page-inner">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-action">
-                        新纪录内容
-                    </div>
-                    <div class="card-content">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="input-field col s4">
-                                    <i class="fa fa-font prefix" aria-hidden="true"></i>
-                                    <input id="title" type="text" class="validate">
-                                    <label for="title">标题</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <i class="fa fa-clock-o prefix" aria-hidden="true"></i>
-                                    <input id="time" type="text" class="validate">
-                                    <label for="time">时间</label>
-                                </div>
-                                <div class="input-field col s4">
-                                    <i class="fa fa-map-marker prefix" aria-hidden="true"></i>
-                                    <input id="location" type="text" class="validate">
-                                    <label for="location">地点</label>
-                                </div>
-                                <div class="input-field col s12">
-                                    <i class="fa fa-commenting prefix" aria-hidden="true"></i>
-                                    <textarea id="content" class="materialize-textarea"></textarea>
-                                    <label for="content">内容</label>
-                                </div>
+{block name="$subtitle"}
+{$subtitle|default=""}
+{/block}
 
-                                <!-- Switch -->
-                                <div class="switch">
-                                    <label>
-                                        彼此可见
-                                        <input type="checkbox">
-                                        <span class="lever"></span>
-                                        公开
-                                    </label>
-                                </div>
-
-                                <p>
-                                    <input name="group1" type="radio" id="test1"/>
-                                    <label for="test1">Red</label>
-                                </p>
-                                <p>
-                                    <input name="group1" type="radio" id="test2"/>
-                                    <label for="test2">Red</label>
-                                </p>
-                                <p>
-                                    <input name="group1" type="radio" id="test3"/>
-                                    <label for="test3">Red</label>
-                                </p>
-                                <p>
-                                    <input name="group1" type="radio" id="test4"/>
-                                    <label for="test4">Red</label>
-                                </p>
-
-                            </div>
-                        </form>
-
-
-                        <div class="clearBoth"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="card">
-                    <div class="card-action">
-                        Basic Form Elements
-                    </div>
-                    <div class="card-content">
-
-                        <form action="#">
-
-
-                            <p>
-                                <input name="group1" type="radio" id="test1"/>
-                                <label for="test1">Red</label>
-                            </p>
-                            <p>
-                                <input name="group1" type="radio" id="test2"/>
-                                <label for="test2">Yellow</label>
-                            </p>
-                            <p>
-                                <input class="with-gap" name="group1" type="radio" id="test3"/>
-                                <label for="test3">Green</label>
-                            </p>
-                            <p>
-                                <input name="group1" type="radio" id="test4" disabled="disabled"/>
-                                <label for="test4">Brown</label>
-                            </p>
-                        </form>
-                        <form action="#">
-                            <p>
-                                <input type="checkbox" id="test5"/>
-                                <label for="test5">Red</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="test6" checked="checked"/>
-                                <label for="test6">Yellow</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
-                                <label for="filled-in-box">Filled in</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="indeterminate-checkbox"/>
-                                <label for="indeterminate-checkbox">Indeterminate Style</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="test7" checked="checked" disabled="disabled"/>
-                                <label for="test7">Green</label>
-                            </p>
-                            <p>
-                                <input type="checkbox" id="test8" disabled="disabled"/>
-                                <label for="test8">Brown</label>
-                            </p>
-
-
-                    </div>
-
-                </div>
-                <!-- /.row (nested) -->
-            </div>
-            <!-- /.panel-body -->
-        </div>
-        <!-- /.col-lg-12 -->
-        {include file="public/footer" /}
-    </div>
-    <!-- /. PAGE INNER  -->
-</div>
-<!-- /. PAGE WRAPPER  -->
-</div>
-<!-- /. WRAPPER  -->
-{include file="public/public-js" /}
-
+{block name="js"}
 <script>
     $(function () {
         $("#logout").on('click', function () {
@@ -167,6 +28,131 @@
         })
     })
 </script>
+{/block}
 
-</body>
-</html>
+
+{block name="main"}
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-action">
+            新纪录内容
+        </div>
+        <div class="card-content">
+            <form class="col s12">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <i class="fa fa-font prefix" aria-hidden="true"></i>
+                        <input id="title" type="text" class="validate">
+                        <label for="title">标题</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="fa fa-clock-o prefix" aria-hidden="true"></i>
+                        <input id="time" type="text" class="validate">
+                        <label for="time">时间</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <i class="fa fa-map-marker prefix" aria-hidden="true"></i>
+                        <input id="location" type="text" class="validate">
+                        <label for="location">地点</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="fa fa-commenting prefix" aria-hidden="true"></i>
+                        <textarea id="content" class="materialize-textarea"></textarea>
+                        <label for="content">内容</label>
+                    </div>
+
+                    <!-- Switch -->
+                    <div class="switch">
+                        <label>
+                            彼此可见
+                            <input type="checkbox">
+                            <span class="lever"></span>
+                            公开
+                        </label>
+                    </div>
+
+                    <p>
+                        <input name="group1" type="radio" id="test1"/>
+                        <label for="test1">Red</label>
+                    </p>
+                    <p>
+                        <input name="group1" type="radio" id="test2"/>
+                        <label for="test2">Red</label>
+                    </p>
+                    <p>
+                        <input name="group1" type="radio" id="test3"/>
+                        <label for="test3">Red</label>
+                    </p>
+                    <p>
+                        <input name="group1" type="radio" id="test4"/>
+                        <label for="test4">Red</label>
+                    </p>
+
+                </div>
+            </form>
+
+
+            <div class="clearBoth"></div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-action">
+            Basic Form Elements
+        </div>
+        <div class="card-content">
+
+            <form action="#">
+
+
+                <p>
+                    <input name="group1" type="radio" id="test1"/>
+                    <label for="test1">Red</label>
+                </p>
+                <p>
+                    <input name="group1" type="radio" id="test2"/>
+                    <label for="test2">Yellow</label>
+                </p>
+                <p>
+                    <input class="with-gap" name="group1" type="radio" id="test3"/>
+                    <label for="test3">Green</label>
+                </p>
+                <p>
+                    <input name="group1" type="radio" id="test4" disabled="disabled"/>
+                    <label for="test4">Brown</label>
+                </p>
+            </form>
+            <form action="#">
+                <p>
+                    <input type="checkbox" id="test5"/>
+                    <label for="test5">Red</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="test6" checked="checked"/>
+                    <label for="test6">Yellow</label>
+                </p>
+                <p>
+                    <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
+                    <label for="filled-in-box">Filled in</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="indeterminate-checkbox"/>
+                    <label for="indeterminate-checkbox">Indeterminate Style</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="test7" checked="checked" disabled="disabled"/>
+                    <label for="test7">Green</label>
+                </p>
+                <p>
+                    <input type="checkbox" id="test8" disabled="disabled"/>
+                    <label for="test8">Brown</label>
+                </p>
+
+
+        </div>
+
+    </div>
+    <!-- /.row (nested) -->
+</div>
+{/block}

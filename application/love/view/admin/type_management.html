@@ -1,0 +1,102 @@
+{include file="public/header" /}
+<!--导航 nav-->
+{include file="public/nav" /}
+
+
+<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                            {$title|default="标题"} 
+                            <small>副标题</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="index.html">首页</a></li>
+					  <li class="active">{$title|default="标题"}</li>
+					</ol> 
+									
+		</div>
+            <div id="page-inner"> 
+			  <div class="row">
+                  <!-- 主要内容 -->
+                  
+                <div class="col-md-6">
+                        <!--    Hover Rows  -->
+                       <div class="card">
+                           <div class="card-action">
+                               类型列表
+                           </div>
+                           <div class="card-content">
+                               <div class="table-responsive">
+                                   <table class="table table-hover">
+                                       <thead>
+                                           <tr>
+                                               <th>#</th>
+                                               <th>名字</th>
+                                               <th>样式</th>
+                                               <th>状态</th>
+                                               <th>作者</th>
+                                               <th>操作</th>
+                                           </tr>
+                                       </thead>
+                                       <tbody>
+                                           {volist name="typelist" id="vo"}
+                                           <tr>
+                                               <td>{$vo.id}</td>
+                                               <td>{$vo.name}</td>
+                                               <td>{$vo.type|raw}</td>
+                                               <td>{$vo.status}</td>
+                                               <td>{$vo.user_id}</td>
+                                               <td>操作</td>
+                                           </tr>
+                                           {/volist}
+                                       </tbody>
+                                   </table>
+                               </div>
+                           </div>
+                       </div>
+                       <!-- End  Hover Rows  -->
+                   </div>
+                    <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-action">
+                         Empty Page
+                        </div>        
+                            <div class="card-content"> 
+						        <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                <div class="clearBoth"><br/></div>
+						    
+						    </div>
+					</div>
+
+                        {include file="public/footer" /}
+                    </div>
+                  <!-- /. PAGE INNER  -->
+                  <!-- 主要内容结束 -->
+              </div>
+                <!-- /. PAGE WRAPPER  -->
+            </div>
+            <!-- /. WRAPPER  -->
+            {include file="public/public-js" /}
+
+            <script>
+                $(function () {
+                    $("#logout").on('click', function () {
+                        $.ajax({
+                            type: 'post',
+                            url: "{:url('love/user/logout')}",
+                            data: '',
+                            dataType: 'Json',
+                            success: function (data) {
+                                if (data.status == 1) {
+                                    dialog.msg_url(data.message, "{:url('love/user/login')}");
+                                } else {
+                                    dialog.error(data.message);
+                                }
+                            }
+                        })
+                    })
+                })
+            </script>
+
+            </body>
+            </html>

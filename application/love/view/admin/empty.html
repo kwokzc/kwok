@@ -1,0 +1,63 @@
+﻿{include file="public/header" /}
+<!--导航开始 nav-->
+{include file="public/nav" /}
+<!--导航结束 nav-->
+<div id="page-wrapper">
+    <div class="header">
+        <h1 class="page-header">
+            {$title|default="标题"}
+            <small>副标题</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="index.html">首页</a></li>
+            <li class="active">{$title|default="标题"}</li>
+        </ol>
+    </div>
+    <div id="page-inner">
+        <div class="row">
+            <!-- 主要内容 -->
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-action">
+                        Empty Page
+                    </div>
+                    <div class="card-content">
+                        <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                            aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                            cillum dolore eu fugiat nulla pariatur.</p>
+                        <div class="clearBoth"><br/></div>
+                    </div>
+                </div>
+                {include file="public/footer" /}
+            </div>
+            <!-- /. PAGE INNER  -->
+            <!-- 主要内容结束 -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    {include file="public/public-js" /}
+
+    <script>
+        $(function () {
+            $("#logout").on('click', function () {
+                $.ajax({
+                    type: 'post',
+                    url: "{:url('love/user/logout')}",
+                    data: '',
+                    dataType: 'Json',
+                    success: function (data) {
+                        if (data.status == 1) {
+                            dialog.msg_url(data.message, "{:url('love/user/login')}");
+                        } else {
+                            dialog.error(data.message);
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+
+    </body>
+    </html>

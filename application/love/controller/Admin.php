@@ -8,6 +8,7 @@ namespace app\love\controller;
 use app\common\controller\Base;
 
 use app\facede\LoveDb;
+use app\facede\LoveTypeDb;
 
 class Admin extends Base
 {
@@ -37,6 +38,17 @@ class Admin extends Base
 
     public function add()
     {
+        return $this->fetch();
+    }
+    public function test()
+    {
+        return $this->fetch();
+    }
+
+    public function typeManagement()
+    {
+        $typelist = LoveTypeDb::getTypeList();
+        $this->assign('typelist',$typelist);
         return $this->fetch();
     }
 

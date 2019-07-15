@@ -130,4 +130,9 @@ class LoveDb extends Model
         $status = ['1' => '正常','0' => '已删除'];
         return $status[$value];
     }
+
+    public function getTypeList()
+    {
+        return LoveDb::all();
+    }
 }
