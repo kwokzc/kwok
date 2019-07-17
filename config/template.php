@@ -43,9 +43,10 @@ return [
         '__LOVE__'    =>'/static/love',
         '__LOVE-INDEX__'    =>'/static/love/index',
         '__LOVE-ADMIN__'    =>'/static/love/admin',
+        '__LOVE-TITLE__' => '我们的爱',
         '__STATIC__'=>'/static',
         '__JS__' => '/static/js',
         '__CSS__' => '/static/css',
-        '__LOVE-TITLE__' => '我们的爱',
+        '__LAYUI__' => '/static/layui',
     ]
 ];

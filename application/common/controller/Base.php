@@ -29,7 +29,7 @@ class Base extends Controller
      * 用于在登录、注册、找回密码页面前判断是否登录
      * @param string $msg 用于传入提示消息，有默认值
      */
-    public function isLogin($msg='当前已经登陆,请勿重复登录')
+    public function Logined($msg='当前已经登陆,请勿重复登录')
     {
         if (Session::has('user_name'))
         {
@@ -37,7 +37,7 @@ class Base extends Controller
         }
     }
 
-    public function noLogin($msg='目前未登录,请先登录',$url="user/login")
+    public function isLogin($msg='目前未登录,请先登录',$url="user/login")
     {
         if (!Session::has('user_name'))
         {

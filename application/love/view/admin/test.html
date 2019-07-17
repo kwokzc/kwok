@@ -1,4 +1,123 @@
-{extend name="base" /}
-{block name="main"}
-a
-{/block}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX实时编辑</title>
+    <script src="__PUBLIC__/jquery-1.7.2.min.js"></script>
+</head>
+<body>
+<center>
+    <table border="1" width="1000" id="g_table">
+        <tr>
+            <!-- <th>ID</th> -->
+            <th>TAB1</th>
+            <th>TAB2</th>
+            <th>TAB3</th>
+            <th>TAB4</th>
+            <th><span onclick="add()">添加</span></th>
+        </tr>
+        <foreach name="tablist" item="vv">
+            <tr>
+                <!-- <td>{$vv.id}</td> -->
+                <input type="hidden" name="id" value="{$vv.id}">
+                <td>{$vv.tab1}</td>
+                <td>{$vv.tab2}</td>
+                <td>{$vv.tab3}</td>
+                <td>{$vv.tab4}</td>
+                <td><span onclick="del(this)" id="del">删除</span><span onclick="edit(this)" id="edit">修改</span></td>
+            </tr>
+        </foreach>
+    </table>
+</center>
+</body>
+<script>
+    var g_table = $("#g_table");
+
+    function add() {
+        var addRow = $("<tr></tr>");
+
+        g_table.append(addRow);
+        for (var i = 0; i < 4; i++) {
+            var col_td = $("<td><input type='text' /></td>");
+            addRow.append(col_td);
+        }
+        var col_opt = $("<td></td>");
+        var confirmBtn = $("<a href='javascript:;'>确认</a>");
+        var cancelBtn = $("<a href='javascript:;'>取消</a>");
+        cancelBtn.click(function () {
+            window.location.reload();
+        });
+        confirmBtn.click(function () {
+            var currentRow = $(this).parent().parent();
+            var input_files = currentRow.find("input");
+            var post_files = {};
+            for (var i = 0, j = input_files.length; i < j; i++) {
+                post_files['clo_' + i] = input_files[i].value;
+            }
+// $.post("{:U('ajax/add')}",post_files,function(msg){
+// debugger;
+// })
+            $.ajax({
+                type: 'post',
+                url: "{:U('ajax/add')}",
+                data: {post_files},
+                success: function (msg) {
+                    alert(msg);
+                    window.location.reload();
+                }
+            })
+        });
+        col_opt.append(confirmBtn);
+        col_opt.append(cancelBtn);
+        addRow.append(col_opt);
+    }
+
+    function del(obj) {
+        var id = $(obj).parent().prev().prev().prev().prev().prev().val();
+        $.ajax({
+            type: 'post',
+            url: "{:U('ajax/del')}",
+            data: {id: id},
+            success: function (msg) {
+                alert(msg);
+            }
+        })
+        $(obj).parent().parent().remove();
+    }
+
+    function edit(obj) {
+        var id = $(obj).parent().prev().prev().prev().prev().prev().val();
+        for (var i = 1; i < 5; i++) {
+            var temp = "<td><input type='text' value='" + $(obj).parent().parent().children().eq(i).html() + "'/></td>";
+            $(obj).parent().parent().children().eq(i).replaceWith(temp);
+        }
+        var confirmBtn1 = $("<span id='confirm'>确认</span>");
+        var cancelBtn1 = $("<span onclick='back()'>取消</span>");
+        confirmBtn1.click(function () {
+            var currentRow = $(this).parent().parent();
+            var input_files = currentRow.find("input");
+            var post_files = {};
+            for (var i = 0, j = input_files.length; i < j; i++) {
+                post_files['clo_' + i] = input_files[i].value;
+            }
+            $.ajax({
+                type: 'post',
+                url: "{:U('ajax/edit')}",
+                data: {post_files: post_files, id: id},
+                success: function (msg) {
+                    alert(msg);
+                    window.location.reload();
+                }
+            })
+        });
+        $(obj).prev().replaceWith(confirmBtn1);
+        $(obj).replaceWith(cancelBtn1);
+
+
+    }
+
+    function back() {
+        location.reload();
+    }
+</script>
+</html>

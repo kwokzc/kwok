@@ -16,15 +16,13 @@
             </ol>
         </div>
         <div id="page-inner">
-            <div class="row">
-                <!-- 主要内容 -->
-                {block name="main"}主内容{/block}
-                <!-- 主要内容结束 -->
-            </div>
+            <!-- 主要内容 -->
+            {block name="main"}主内容{/block}
+            <!-- 主要内容结束 -->
+            {include file="layout/footer" /}
         </div>
+        
     </div>
-    {include file="layout/footer" /}
-
     {include file="layout/public-js" /}
     <!--  自定义JS  -->
     {block name="js"}{/block}

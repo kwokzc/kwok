@@ -1,102 +1,210 @@
-{include file="public/header" /}
-<!--导航 nav-->
-{include file="public/nav" /}
+{extend name="layout/base" /}
+
+{block name="title"}
+{$title|default="记录类型管理"}
+{/block}
+
+{block name="$subtitle"}
+<a class="waves-effect waves-light btn" id="add">新建类型</a>
+{/block}
+
+{block name="js"}
+<!--<script src="__LAYUI__/layui.js"></script>-->
+<script>
+
+    //编辑edit方法
+    function edit(obj) {
+        //通过a标签按钮获取到列表的id列text
+        var id = $(obj).parent().prev().prev().prev().prev().text();
+        // layer.msg(id);
+        //for循环获取列表数据
+        for (var i = 1; i < 4; i++) {
+            // 获取列表数据并制造input
+            var temp = "<td><input type='text' value='" + $(obj).parent().parent().children().eq(i).html() + "'/></td>";
+            //重写表格 变成可编辑状态
+            $(obj).parent().parent().children().eq(i).replaceWith(temp);
+        };
+        //添加保存按钮
+        var temp = "<a class=\"waves-effect waves-light btn\" style='background: #f14d4d;' onclick=\"save(this)\" id=\"save\">保存</a>";
+        $(obj).replaceWith(temp);
+    };
+
+    //保存save方法
+    function save(obj) {
+        //通过a标签按钮获取到列表的id列text
+        var id = $(obj).parent().prev().prev().prev().prev().text();
+        //获取tr行对象
+        var currentRow = $(obj).parent().parent();
+        //通过行对象获取input数据
+        var input_files = currentRow.find("input");
+        //创建数据数组
+        var data = {};
+        //存放id
+        data['id'] = id;
+        //存放数据
+        for (var i = 0, j = input_files.length; i < j; i++) {
+            data['td_' + i] = input_files[i].value;
+        };
+        //通过ajax写入数据库
+        $.ajax({
+            type: 'post',
+            url: "{:url('love/admin/typeEditSave')}",
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 1){
+                    //保存完成
+                    dialog.msg_url(data.message,"{:url('love/admin/typeManagement')}");
+                }else {
+                    //保存失败
+                    dialog.error(data.message);
+                }
+            }
+
+        })
+    };
+
+    function addSave(){
+        $.ajax({
+            type: 'post',
+            url: "{:url('love/admin/typeAddSave')}",
+            data: $('form').serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 1){
+                    dialog.msg_url(data.message,"{:url('love/admin/typeManagement')}");
+                }else {
+                    dialog.error(data.message);
+                }
+            }
+
+        })
+    }
 
 
-<div id="page-wrapper">
-		  <div class="header"> 
-                        <h1 class="page-header">
-                            {$title|default="标题"} 
-                            <small>副标题</small>
-                        </h1>
-						<ol class="breadcrumb">
-					  <li><a href="index.html">首页</a></li>
-					  <li class="active">{$title|default="标题"}</li>
-					</ol> 
-									
-		</div>
-            <div id="page-inner"> 
-			  <div class="row">
-                  <!-- 主要内容 -->
-                  
-                <div class="col-md-6">
-                        <!--    Hover Rows  -->
-                       <div class="card">
-                           <div class="card-action">
-                               类型列表
-                           </div>
-                           <div class="card-content">
-                               <div class="table-responsive">
-                                   <table class="table table-hover">
-                                       <thead>
-                                           <tr>
-                                               <th>#</th>
-                                               <th>名字</th>
-                                               <th>样式</th>
-                                               <th>状态</th>
-                                               <th>作者</th>
-                                               <th>操作</th>
-                                           </tr>
-                                       </thead>
-                                       <tbody>
-                                           {volist name="typelist" id="vo"}
-                                           <tr>
-                                               <td>{$vo.id}</td>
-                                               <td>{$vo.name}</td>
-                                               <td>{$vo.type|raw}</td>
-                                               <td>{$vo.status}</td>
-                                               <td>{$vo.user_id}</td>
-                                               <td>操作</td>
-                                           </tr>
-                                           {/volist}
-                                       </tbody>
-                                   </table>
-                               </div>
-                           </div>
-                       </div>
-                       <!-- End  Hover Rows  -->
-                   </div>
-                    <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-action">
-                         Empty Page
-                        </div>        
-                            <div class="card-content"> 
-						        <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                                <div class="clearBoth"><br/></div>
-						    
-						    </div>
-					</div>
+    $(function () {
+        $("#add").on('click', function () {
+            //页面层
+            layer.open({
+                type: 1,
+                skin: 'layui-layer-rim', //加上边框
+                // area: ['50%', '50%'], //宽高
+                area: ['50%', ], //宽
+                content: '<div class="col-lg-12">\n' +
+                    '                <div class="card">\n' +
+                    '                    <div class="card-action">\n' +
+                    '                        添加新类型\n' +
+                    '                    </div>\n' +
+                    '                    <div class="card-content">\n' +
+                    '                        <form class="col s12" id="typeaddform">\n' +
+                    '                            <div class="row">\n' +
+                    '                                <div class="input-field col s4">\n' +
+                    '                                    <i class="fa fa-font prefix" aria-hidden="true"></i>\n' +
+                    '                                    <input name="name" type="text" class="validate">\n' +
+                    '                                    <label for="title">名字</label>\n' +
+                    '                                </div>\n' +
+                    '                                <div class="input-field col s4">\n' +
+                    '                                    <i class="fa fa-clock-o prefix" aria-hidden="true"></i>\n' +
+                    '                                    <input name="div_background" type="text" class="validate">\n' +
+                    '                                    <label for="time">背景颜色</label>\n' +
+                    '                                </div>\n' +
+                    '                                <div class="input-field col s4">\n' +
+                    '                                    <i class="fa fa-map-marker prefix" aria-hidden="true"></i>\n' +
+                    '                                    <input name="i_color" type="text" class="validate">\n' +
+                    '                                    <label for="location">icon颜色(默认为白色,可不填)</label>\n' +
+                    '                                </div>\n' +
+                    '                                <div class="input-field col s10">\n' +
+                    '                                    <i class="fa fa-commenting prefix" aria-hidden="true"></i>\n' +
+                    '                                    <textarea name="type" class="materialize-textarea"></textarea>\n' +
+                    '                                    <label for="content">样式</label>\n' +
+                    '                                </div>\n' +
+                    '                                <div class="input-field col s2">\n' +
+                    '                                    <a class="waves-effect waves-light btn" onclick="addSave()"><i class="material-icons left">cloud</i>提交</a>\n' +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                        </form>\n' +
+                    '                        <div class="clearBoth"></div>\n' +
+                    '                    </div>\n' +
+                    '                </div>\n' +
+                    '            </div>'
+            });
 
-                        {include file="public/footer" /}
-                    </div>
-                  <!-- /. PAGE INNER  -->
-                  <!-- 主要内容结束 -->
-              </div>
-                <!-- /. PAGE WRAPPER  -->
+        })
+    })
+
+</script>
+{/block}
+
+
+{block name="main"}
+
+<style>
+    .love-type-div{
+        margin: 0 auto;
+        background: #f65b5b;
+        width: 40px;
+        height: 40px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+    }
+    .love-type-div i{
+        color: #fff;
+        line-height: 40px;
+        text-align: center;
+        width: 40px;
+        font-size: 2em;
+    }
+    th,td {
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-action">
+                类型列表
             </div>
-            <!-- /. WRAPPER  -->
-            {include file="public/public-js" /}
-
-            <script>
-                $(function () {
-                    $("#logout").on('click', function () {
-                        $.ajax({
-                            type: 'post',
-                            url: "{:url('love/user/logout')}",
-                            data: '',
-                            dataType: 'Json',
-                            success: function (data) {
-                                if (data.status == 1) {
-                                    dialog.msg_url(data.message, "{:url('love/user/login')}");
-                                } else {
-                                    dialog.error(data.message);
-                                }
-                            }
-                        })
-                    })
-                })
-            </script>
-
-            </body>
-            </html>
+            <div class="card-content">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>类型名称</th>
+                                <th>图标样式</th>
+                                <th>背景颜色</th>
+                                <th>操作</th>
+                                <th>效果</th>
+                                <th>状态</th>
+                                <th>作者</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="typelist" id="vo"}
+                            <tr class="info">
+                                <td>{$vo.id}</td>
+                                <td>{$vo.name}</td>
+                                <td>{$vo.type}</td>
+                                <td>{$vo.div_background}</td>
+                                <td><a class="waves-effect waves-light btn" onclick="edit(this)" id="edit">编辑</a></td>
+                                <td><div class="love-type-div" style="background: {$vo.div_background}">{$vo.type|raw}</div></td>
+                                <td>
+                                    <div class="switch">
+                                        <label>
+                                            <input type="checkbox" {if $vo.status == '启用'}checked="checked">{/if}
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>{$vo.user_id}</td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}

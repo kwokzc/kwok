@@ -43,3 +43,18 @@ function setconfig($arr, $filename)
 {
     return file_put_contents($filename, "<?php \r\n return " . var_export($arr, true) . ";");
 }
+
+function array_edit_key($data,$k)
+{
+    if (count($data)==count($k)){
+        $tmp =0;
+        foreach ($data as $key => $value)
+        {
+            $res[$k[$tmp]] = $value;
+            $tmp++;
+        }
+        return $res;
+    }else{
+        return show(0,'两个数组长度不一致');
+    }
+}

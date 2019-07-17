@@ -14,7 +14,7 @@ class User extends Base
     //注册页面
     public function register()
     {
-        $this->isLogin('已经登录,请勿重复注册');
+        $this->logined('已经登录,请勿重复注册');
         $this->assign('title','注册');
         return $this->fetch();
     }
@@ -22,7 +22,7 @@ class User extends Base
     //登录页面
     public function login()
     {
-        $this->isLogin();
+        $this->logined();
         $this->assign('title','登录');
         return $this->fetch();
     }
@@ -45,7 +45,7 @@ class User extends Base
     //找回密码页面
     public function password()
     {
-        $this->isLogin('已经登录,无需找回密码');
+        $this->logined('已经登录,无需找回密码');
         $this->assign('title','找回密码');
         return $this->fetch();
     }

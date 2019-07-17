@@ -1,0 +1,70 @@
+{extend name="layout/base" /}
+
+{block name="title"}
+{$title|default="记录列表"}
+{/block}
+
+{block name="$subtitle"}
+{$subtitle|default=""}
+{/block}
+
+{block name="js"}
+<script src="__LAYUI__/layui.js"></script>
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['layer', 'form'], function(){
+        var layer = layui.layer
+            ,form = layui.form;
+
+        layer.msg('Hello World');
+    });
+</script>
+{/block}
+
+
+{block name="main"}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-action">
+                恋爱时间线
+            </div>
+            <div class="card-content">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>作者</th>
+                            <th>标题</th>
+                            <th>内容</th>
+                            <th>地点</th>
+                            <th>类型</th>
+                            <th>隐私</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="lovelist" id="vo"}
+                            <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.user_id}</td>
+                            <td>{$vo.title}</td>
+                            <td>{$vo.content}</td>
+                            <td>{$vo.location}</td>
+                            <td>{$vo.type_id}</td>
+                            <td>{$vo.look_permission}</td>
+                            <td>{$vo.time}</td>
+                            <td><a class="waves-effect waves-light btn">编辑</a></td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}

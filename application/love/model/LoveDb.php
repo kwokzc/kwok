@@ -131,8 +131,10 @@ class LoveDb extends Model
         return $status[$value];
     }
 
-    public function getTypeList()
+    public function getLoveList()
     {
         return LoveDb::all();
     }
+
+
 }

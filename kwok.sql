@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost:3306
--- 生成日期： 2019-07-15 17:03:28
--- 服务器版本： 5.6.38
--- PHP 版本： 7.2.1
+-- 生成日期： 2019-07-17 22:30:36
+-- 服务器版本： 5.7.23
+-- PHP 版本： 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -85,7 +85,7 @@ INSERT INTO `kwok_love` (`id`, `user_id`, `title`, `content`, `location`, `type_
 CREATE TABLE `kwok_love_type` (
   `id` int(11) NOT NULL COMMENT '时间线类型id主键',
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类型名称',
-  `type` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '类型',
   `div_background` char(7) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圆形div背景颜色',
   `i_color` char(7) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'i标签color',
   `status` int(4) NOT NULL DEFAULT '1' COMMENT '状态;1为启用,0为禁用',
@@ -98,8 +98,9 @@ CREATE TABLE `kwok_love_type` (
 --
 
 INSERT INTO `kwok_love_type` (`id`, `name`, `type`, `div_background`, `i_color`, `status`, `user_id`, `create_time`) VALUES
-(1, '心', '<i class=\"fa fa-heart fa-5x\" style=\"color:red;\" aria-hidden=\"true\"></i>', '#ff5a5a', '#fff', 1, 1, 1),
-(2, '笑脸', '<i class=\"fa fa-smile-o\" style=\"color:red;\" aria-hidden=\"true\"></i>', '', '', 1, 1, 1);
+(1, '心', '<i class=\"fa fa-heartbeat\" aria-hidden=\"true\"></i>', '#f65b5b', '#fff', 1, 1, 1),
+(2, '笑脸', '<i class=\"fa fa-smile-o\" aria-hidden=\"true\"></i>', '#6da1a8', '', 1, 1, 1),
+(3, '消息', '<i class=\"fa fa-commenting\" aria-hidden=\"true\"></i>', '#2682d1', '', 1, 1, 1563373351);
 
 -- --------------------------------------------------------
 
@@ -250,7 +251,7 @@ ALTER TABLE `kwok_love`
 -- 使用表AUTO_INCREMENT `kwok_love_type`
 --
 ALTER TABLE `kwok_love_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '时间线类型id主键', AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '时间线类型id主键', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `kwok_user`
