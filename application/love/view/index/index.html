@@ -1,21 +1,47 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{$title|default="__LOVE-TITLE__"}</title>
-{load href="__CSS__/bootstrap.min.css" /}
-{load href="__LOVE-INDEX__/css/main.css" /}
-{load href="__LOVE-INDEX__/css/style.css" /}
-    {load href="__LOVE-INDEX__/css/font-awesome.min.css" /}
+{extend name="index/layout" /}
+{block name="diy_style"}
+<style>
+    .i-father-div{
+        height: 80px;
+        text-align: center;
+    }
 
-    <link rel="shortcut icon" type="image/x-icon" href="__LOVE__/favicon.ico">
+    .i-father-div i{
+        color: #fff;
+        line-height: 80px;
+        text-align: center;
+        width: 80px;
+        font-size: 3em;
+    }
+</style>
+{/block}
 
-</head>
-<body>
-{include file="index/nav" /}
-{include file="index/main" /}
+{block name="main"}
+<!--内容-->
+<section id="cd-timeline" class="cd-container">
+    {volist name="list" id="vo"}
+    <div class="cd-timeline-block">
+        <div class="cd-timeline-img cd-text" style="background: {$type[($vo.type_id-1)]['div_background']}">
+            <div class="i-father-div">
+                {$type[($vo.type_id-1)]['type']|raw}
+            </div>
+            <!-- <img src="__LOVE-INDEX__/img/cd-icon-text.svg" alt="text"> -->
+        </div>
+        <div class="cd-timeline-content-{$vo.user_id}">
+            <h2>{$vo.title}</h2>
+            <p>{$vo.content|raw}</p>
+            <span style="top:30px;font-size: 1.2em;" class="cd-date"><i class="fa fa-clock-o" aria-hidden="true"></i>{$vo.time}</span>
+        </div>
+    </div>
+    {/volist}
+</section>
+
+<div id="render">
+    {$list->render()|raw}
+</div>
 
 
-</body>
-</html>
+{/block}
+{block name="js"}
+
+{/block}

@@ -39,9 +39,12 @@ class Index extends Base
         $type = LoveTypeDb::getTypeList();
 //        $page = $res->render();
 //        $list = $res->all();
-        return var_dump($type);
+        $arr = $type->toArray();
+//        $arr[1] =array();
+
+//        return var_dump($arr);
         $this->assign('list',$res);
-        $this->assign('type',$type);
+        $this->assign('type',$arr);
 //        $this->assign('page',$page);
 //        var_dump($res);
 

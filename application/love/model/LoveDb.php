@@ -66,7 +66,7 @@ class LoveDb extends Model
                 return date('Y-m-d',$value);
             }else{
                 //否则返回年月日时分秒
-                return date('Y-m-d H-i-s',$value);
+                return date('Y-m-d H:i:s',$value);
             }
         }else{
             //如果为null 则还未发布

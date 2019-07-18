@@ -11,7 +11,7 @@ class Love extends Validate
 {
     protected $rule = [
         'user_id|用户ID'  => 'require|integer',
-        'title|标题'      => 'require|chsAlphaNum',
+        'title|标题'      => 'require',
         'content|内容'    => 'require',
 //        'location|地点'   => 'require',
         'type_id|类型'    => 'require',

@@ -64,4 +64,12 @@ class LoveTypeDb extends Model
     {
         return LoveTypeDb::all();
     }
+
+    /**
+     * 获取类型列表所有数据返回数组
+     */
+    public function getTypeListArr()
+    {
+        return LoveTypeDb::all();
+    }
 }
