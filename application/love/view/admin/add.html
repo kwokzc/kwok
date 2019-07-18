@@ -9,7 +9,26 @@
 {/block}
 
 {block name="js"}
+
 <script>
+
+    function add(){
+        $.ajax({
+            type: 'post',
+            url: "{:url('love/admin/loveAdd')}",
+            data: $('form').serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data.status == 1){
+                    dialog.msg_url(data.message,"{:url('love/admin/list')}");
+                }else {
+                    dialog.error(data.message);
+                }
+            }
+
+        })
+    }
+
     $(function () {
         $("#logout").on('click', function () {
             $.ajax({
@@ -32,6 +51,30 @@
 
 
 {block name="main"}
+<!--自定义样式 用于展示类型-->
+<style>
+    .love-type-div{
+        margin: 0 auto;
+        background: #f65b5b;
+        width: 40px;
+        height: 40px;
+        top: 0;
+        border-radius: 50%;
+        box-shadow: 0 0 0 4px white, inset 0 2px 0 rgba(0, 0, 0, 0.08), 0 3px 0 4px rgba(0, 0, 0, 0.05);
+    }
+    .love-type-div i{
+        color: #fff;
+        line-height: 40px;
+        text-align: center;
+        width: 40px;
+        font-size: 2em;
+    }
+    th,td {
+        text-align: center;
+    }
+</style>
+<!--自定义样式 用于展示类型-->
+
 <div class="row">
     <div class="col-lg-6">
         <div class="card">
@@ -41,54 +84,47 @@
             <div class="card-content">
                 <form class="col s12">
                     <div class="row">
-                        <div class="input-field col s4">
+                        <div class="input-field col s7">
                             <i class="fa fa-font prefix" aria-hidden="true"></i>
-                            <input id="title" type="text" class="validate">
+                            <input id="title" name="title" type="text" class="validate">
                             <label for="title">标题</label>
                         </div>
-                        <div class="input-field col s4">
+                        <div class="input-field col s5">
                             <i class="fa fa-clock-o prefix" aria-hidden="true"></i>
-                            <input id="time" type="text" class="validate">
-                            <label for="time">时间</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <i class="fa fa-map-marker prefix" aria-hidden="true"></i>
-                            <input id="location" type="text" class="validate">
-                            <label for="location">地点</label>
+                            <input id="time" name="time" type="text" class="validate">
+                            <label for="time">时间(不填时间为草稿)</label>
                         </div>
                         <div class="input-field col s12">
                             <i class="fa fa-commenting prefix" aria-hidden="true"></i>
-                            <textarea id="content" class="materialize-textarea"></textarea>
+                            <textarea id="content" name="content" class="materialize-textarea"></textarea>
                             <label for="content">内容</label>
                         </div>
-
-                        <!-- Switch -->
-                        <div class="switch">
-                            <label>
-                                彼此可见
-                                <input type="checkbox">
-                                <span class="lever"></span>
-                                公开
-                            </label>
+                        <div class="input-field col s4">
+                            <i class="fa fa-map-marker prefix" aria-hidden="true"></i>
+                            <input id="location" name="location" type="text" class="validate">
+                            <label for="location">地点</label>
                         </div>
-
-                        <p>
-                            <input name="group1" type="radio" id="test1"/>
-                            <label for="test1">Red</label>
-                        </p>
-                        <p>
-                            <input name="group1" type="radio" id="test2"/>
-                            <label for="test2">Red</label>
-                        </p>
-                        <p>
-                            <input name="group1" type="radio" id="test3"/>
-                            <label for="test3">Red</label>
-                        </p>
-                        <p>
-                            <input name="group1" type="radio" id="test4"/>
-                            <label for="test4">Red</label>
-                        </p>
-
+                        <div class="input-field col s3">
+                            <select id="type" name="type_id" class="form-control">
+                                {volist name="typelist1" id="typelist"}
+                                <option value="{$typelist.id}">{$typelist.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="input-field col s3">
+                            <!-- Switch -->
+                            <div class="switch">
+                                <label>
+                                    彼此可见
+                                    <input type="checkbox" name="look_permission">
+                                    <span class="lever"></span>
+                                    公开
+                                </label>
+                            </div>
+                        </div>
+                        <div class="input-field col s2" style="text-align: center;">
+                            <button type="button" class="btn btn-primary" onclick="add()">确认提交</button>
+                        </div>
                     </div>
                 </form>
 
@@ -100,61 +136,31 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-action">
-                Basic Form Elements
+                类型样式列表
             </div>
             <div class="card-content">
-
-                <form action="#">
-
-
-                    <p>
-                        <input name="group1" type="radio" id="test1"/>
-                        <label for="test1">Red</label>
-                    </p>
-                    <p>
-                        <input name="group1" type="radio" id="test2"/>
-                        <label for="test2">Yellow</label>
-                    </p>
-                    <p>
-                        <input class="with-gap" name="group1" type="radio" id="test3"/>
-                        <label for="test3">Green</label>
-                    </p>
-                    <p>
-                        <input name="group1" type="radio" id="test4" disabled="disabled"/>
-                        <label for="test4">Brown</label>
-                    </p>
-                </form>
-                <form action="#">
-                    <p>
-                        <input type="checkbox" id="test5"/>
-                        <label for="test5">Red</label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="test6" checked="checked"/>
-                        <label for="test6">Yellow</label>
-                    </p>
-                    <p>
-                        <input type="checkbox" class="filled-in" id="filled-in-box" checked="checked"/>
-                        <label for="filled-in-box">Filled in</label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="indeterminate-checkbox"/>
-                        <label for="indeterminate-checkbox">Indeterminate Style</label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="test7" checked="checked" disabled="disabled"/>
-                        <label for="test7">Green</label>
-                    </p>
-                    <p>
-                        <input type="checkbox" id="test8" disabled="disabled"/>
-                        <label for="test8">Brown</label>
-                    </p>
-
-
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>类型名称</th>
+                            <th>类型效果</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {volist name="typelist2" id="typelist"}
+                        <tr>
+                            <td>{$typelist.id}</td>
+                            <td>{$typelist.name}</td>
+                            <td><div class="love-type-div" style="background: {$typelist.div_background}">{$typelist.type|raw}</div></td>
+                        </tr>
+                        {/volist}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-
         </div>
-        <!-- /.row (nested) -->
     </div>
 </div>
 {/block}

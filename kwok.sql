@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost:3306
--- 生成日期： 2019-07-17 22:30:36
--- 服务器版本： 5.7.23
--- PHP 版本： 7.2.10
+-- 生成日期： 2019-07-18 18:13:04
+-- 服务器版本： 5.6.38
+-- PHP 版本： 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -74,7 +74,7 @@ CREATE TABLE `kwok_love` (
 
 INSERT INTO `kwok_love` (`id`, `user_id`, `title`, `content`, `location`, `type_id`, `look_permission`, `time`, `status`, `create_time`, `update_id`) VALUES
 (1, 2, '萌芽', '猛然得知，他是校友，年久的记忆翻滚而至…… <br> 忐忑而又欢喜地发送了时隔三年的第一条消息……', NULL, 0, 1, 1470326400, 1, 1470326400, NULL),
-(2, 2, '萌芽', '猛然得🌂知，他是校友，年久的记忆翻滚而至…… <br>忐忑而又欢喜地发送了时隔三年的第一条消息……', NULL, 0, 0, 1470326400, 1, 1470326400, NULL);
+(2, 1, '再次联系', '时隔半月，才看到这个已经不再使用的QQ收到她发给我的消息。<br />\r\n时隔三年，我们又一次联系上，心中久久不能平静。。。', '', 2, 1, 1471536000, 1, 1563437192, NULL);
 
 -- --------------------------------------------------------
 

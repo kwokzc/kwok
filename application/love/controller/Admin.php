@@ -44,7 +44,59 @@ class Admin extends Base
     {
         $this->assign('head_title','后台首页');
 
+        //获取所有类型数据 传入模板
+        $typelist = LoveTypeDb::getTypeList();
+        $this->assign('typelist1',$typelist);
+        $this->assign('typelist2',$typelist);
+
+
         return $this->fetch();
+    }
+
+    public function loveAdd()
+    {
+
+        if (Request::isAjax()){ //判断是否是ajax传入
+            //使用模型来创建数据
+            //验证数据
+            $data = Request::post();//要验证的数据
+            //获取登录用户id
+            $user_id = Session::get('user_id');
+            if ($user_id != 0){
+                $data['user_id'] = $user_id;
+            }else{
+                return show(0,'获取登录用户ID失败');
+            }
+            //将文本时间转换为时间戳
+            $data['time'] = strtotime($data['time']);
+            //获取查看权限 on替换为1
+            if ($data['look_permission']=='on'){
+                $data['look_permission'] = 1;
+            }else{
+                $data['look_permission'] = 0;
+            }
+            //将内容的换行添加上换行符<br/>
+            $data['content'] = nl2br($data['content']);
+//            return var_dump($data);
+            $rule = 'app\common\validate\Love';//自定义的User验证规则
+            $res = $this->validate($data,$rule);//开始验证
+
+            if (true !== $res){
+                //失败返回
+                return show(0,$res);
+            }else{
+                //验证成功 向数据库写入
+
+                $res = LoveDb::create($data);
+                if ($res->id){
+                    return show(1,'添加成功');
+                }else{
+                    return show(0,'添加失败');
+                }
+            }
+        }else{
+            return show(0,'请求类型错误');
+        }
     }
 
     public function list()

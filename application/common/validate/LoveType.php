@@ -7,7 +7,6 @@ namespace app\common\validate;
 
 
 use think\Validate;
-
 class LoveType extends Validate
 {
     protected $rule = [
