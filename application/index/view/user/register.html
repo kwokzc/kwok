@@ -1,0 +1,66 @@
+{extend name="layout/base-code" /}
+
+{block name="title"}注册{/block}
+
+{block name="main"}
+
+<div class="login-form">
+    <form id="login">
+        <div class="top">
+            <a href="{:url('index/index/index')}">
+                <img style="width: 150px;" src="__LOVE-ADMIN__/login/img/logo.png" alt="icon" class="icon">
+            </a>
+            <h1>{$title}</h1>
+        </div>
+        <div class="form-area">
+            <div class="group">
+                <input type="text" class="form-control" name="name" placeholder="用户名">
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="group">
+                <input type="text" class="form-control" name="email" placeholder="邮箱">
+                <i class="fa fa-envelope-o"></i>
+            </div>
+            <div class="group">
+                <input type="password" class="form-control" name="password" placeholder="密码">
+                <i class="fa fa-key"></i>
+            </div>
+            <div class="group">
+                <input type="password" class="form-control" name="password_confirm" placeholder="再输入一次密码">
+                <i class="fa fa-key"></i>
+            </div>
+            <button type="button" class="btn btn-default btn-block" id="register">注册</button>
+        </div>
+    </form>
+
+    <div class="footer-links row">
+        <div class="col-xs-6"><a href="{:url('index/user/login')}"><i class="fa fa-sign-in"></i>登录</a></div>
+        <div class="col-xs-6 text-right"><a href="{:url('index/user/password')}"><i class="fa fa-lock"></i>找回密码</a></div>
+    </div>
+</div>
+{/block}
+
+{block name="bottom-js"}
+<script>
+    $(function () {
+        $("#register").on('click', function () {
+            // alert($('#login').serialize());
+            $.ajax({
+                type: 'post',
+                url: "{:url('user/api/register')}",
+                data: $('#login').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        dialog.msg_url(data.message, "{:url('index/index/index')}");
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        })
+    })
+</script>
+{/block}
+

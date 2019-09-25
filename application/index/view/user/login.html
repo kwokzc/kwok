@@ -1,0 +1,61 @@
+{extend name="layout/base-code" /}
+
+{block name="title"}登录{/block}
+
+{block name="main"}
+
+<div class="login-form">
+    <form id="login">
+        <div class="top">
+            <a href="{:url('index/index/index')}">
+                <img style="width: 150px;" src="__LOVE-ADMIN__/login/img/logo.png" alt="icon" class="icon">
+            </a>
+            <h1>{$title}</h1>
+        </div>
+        <div class="form-area">
+            <div class="group">
+                <input type="text" class="form-control" name="name" placeholder="账号">
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="group">
+                <input type="password" class="form-control" name="password" placeholder="密码">
+                <i class="fa fa-key"></i>
+            </div>
+            <div class="checkbox checkbox-primary">
+                <input id="checkbox101" type="checkbox" checked>
+                <label for="checkbox101"> 记住账户</label>
+            </div>
+            <button type="button" class="btn btn-default btn-block" id="submit">登录</button>
+        </div>
+    </form>
+    <div class="footer-links row">
+        <div class="col-xs-6"><a href="{:url('love/user/register')}"><i class="fa fa-external-link"></i>注册</a></div>
+        <div class="col-xs-6 text-right"><a href="{:url('love/user/password')}"><i class="fa fa-lock"></i>忘记密码</a></div>
+    </div>
+</div>
+
+{include file="user/public-js" /}
+
+<script>
+    $(function () {
+        $("#submit").on('click', function () {
+            // alert($('#login').serialize());
+            $.ajax({
+                type: 'post',
+                url: "{:url('user/api/login')}",
+                data: $('#login').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        dialog.msg_url(data.message, "{:url('love/admin/index')}");
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        })
+    })
+</script>
+
+{include file="user/footer" /}

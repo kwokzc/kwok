@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    {include file="layout/head-meta" /}
+    <title>{block name="title"}Kwok{/block}</title>
+
+    <!-- ========== Css Files ========== -->
+    <link href="__INDEX__/css/root.css" rel="stylesheet">
+
+{block name="css"}{/block}
+{block name="top-js"}{/block}
+</head>
+
+<body>
+{include file="layout/nav" /}
+
+{block name="content"}
+空白页
+{/block}
+
+{include file="layout/sidepanel" /}
+
+<!-- 引入基本js -->
+<script type="text/javascript" src="__INDEX__/js/jquery.min.js"></script>
+<script type="text/javascript" src="__INDEX__/js/bootstrap/bootstrap.min.js"></script>
+<!-- 插件所需的特定JS代码 -->
+<script type="text/javascript" src="__INDEX__/js/plugins.js"></script>
+{block name="bottom-js"}{/block}
+</body>
+</html>

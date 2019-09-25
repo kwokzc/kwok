@@ -16,8 +16,8 @@ use think\facade\Session;
 class Admin extends Base
 {
 
-    //此类下的所有方法都需要先执行Base\noLogin,以防止未登录查看页面
-    protected $beforeActionList = ['isLogin',];
+    //此类下的所有方法都需要先执行Base\loggedIn,以防止未登录进入后台
+    protected $beforeActionList = ['loggedIn',];
 
     public function index()
     {
@@ -45,9 +45,9 @@ class Admin extends Base
         $this->assign('head_title','后台首页');
 
         //获取所有类型数据 传入模板
-        $typelist = LoveTypeDb::getTypeList();
-        $this->assign('typelist1',$typelist);
-        $this->assign('typelist2',$typelist);
+        $type_list = LoveTypeDb::getTypeList();
+        $this->assign('typelist1',$type_list);
+        $this->assign('typelist2',$type_list);
 
 
         return $this->fetch();
@@ -99,12 +99,12 @@ class Admin extends Base
         }
     }
 
-    public function list()
+    public function loveList()
     {
         $this->assign('head_title','后台首页');
 
-        $lovelist = LoveDb::getLoveList();
-        $this->assign('lovelist',$lovelist);
+        $love_list = LoveDb::getLoveList();
+        $this->assign('love_list',$love_list);
 
 
         return $this->fetch();
@@ -114,8 +114,8 @@ class Admin extends Base
     {
         $this->assign('head_title','后台首页');
 
-        $typelist = LoveTypeDb::getTypeList();
-        $this->assign('typelist',$typelist);
+        $type_list = LoveTypeDb::getTypeList();
+        $this->assign('type_list',$type_list);
 
         return $this->fetch();
     }

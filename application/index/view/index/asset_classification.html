@@ -1,0 +1,400 @@
+{extend name="layout/base" /}
+
+{block name="title"}资产分类管理{/block}
+
+{block name="content"}
+<!-- 开始 内容 -->
+<div class="content">
+
+    <!-- 开始 页面头部 -->
+    <div class="page-header">
+        <h1 class="title">总览</h1>
+        <ol class="breadcrumb">
+            <li class="active">全系统总览面板</li>
+        </ol>
+
+        <!-- 开始 页面头部右侧功能盒子 -->
+        <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+        </div>
+        <!-- 结束 页面头部右侧功能盒子 -->
+
+    </div>
+    <!-- 结束 页面头部 -->
+
+
+    <!-- 开始 介绍 -->
+    <div class="row presentation">
+
+        <div class="col-lg-8 col-md-6 titles">
+            <span class="icon color14-bg"><i class="fa fa-align-left"></i></span>
+            <h1>资产分类管理</h1>
+            <h4>资产分类、资产属性、账户管理 展示和编辑</h4>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <ul class="list-unstyled list">
+                <li><i class="fa fa-check"></i>Easy to Edit
+                <li>
+                <li><i class="fa fa-check"></i>5 Layout Options
+                <li>
+                <li><i class="fa fa-check"></i>Based on <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
+                <li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 结束 介绍 -->
+
+
+    <!-- 开始 主要内容 -->
+    <div class="container-padding">
+
+
+        <!-- Start Row -->
+        <div class="row">
+            <div class="col-md-5 col-lg-5">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        资产账号列表
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <table id="assetAccountListTable" class="table display">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>账号</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>账号</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 添加账户或分类 -->
+            <div class="col-md-3 col-lg-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        添加新的资产账户
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="addAssetAccountForm">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="name" placeholder="可填写账号或分类名">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">父级</label>
+                                <div class="col-sm-10">
+                                    <select class="selectpicker" name="pid" id="addAssetAccountFormSelect">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="2" name="remarks"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                    <input id="status" type="checkbox" name="status" checked>
+                                    <label for="status">是否启用</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" class="btn btn-default" id="addAssetAccountButton">添加</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- 账户分类列表 -->
+            <div class="col-md-4 col-lg-4">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        资产账户分类列表
+                    </div>
+                    <table id="assetAccountPidListTable" class="table display">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>分类</th>
+                            <th>备注</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>分类</th>
+                            <th>备注</th>
+                            <th>状态</th>
+                        </tr>
+                        </tfoot>
+
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Row -->
+    </div>
+    <!-- 结束 主要内容 -->
+
+
+    <!-- 开始 页脚 -->
+    {include file="layout/footer" /}
+    <!-- 结束 页脚 -->
+
+
+</div>
+<!-- 结束 内容 -->
+{/block}
+
+{block name="bottom-js"}
+
+<script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/js/dialog.js"></script>
+<script type="text/javascript" src="__STATIC__/js/kwok.js"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script type="text/javascript" src="__KWOK-INDEX__/js/bootstrap-select/bootstrap-select.js"></script>
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="__INDEX__/js/datatables/datatables.min.js"></script>
+<script>
+    $(document).ready(function(){
+        //初始化表单下拉选择框
+        kwok.selectAjaxUpdate($('#addAssetAccountFormSelect'),"{:url('asset/api/getAssetAccountPidList')}","<option value='0'>无父级(添加账户分类)</option>",0)
+
+        //资产账户表选择器
+        var assetAccount = $('#assetAccountListTable');
+
+        //资产账户分类表选择器
+        var assetAccountType = $('#assetAccountPidListTable');
+
+        //资产账户分类表初始化
+        assetAccountType.DataTable({
+            //中文
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "ajax": "{:url('asset/api/getAssetAccountPidList')}",
+            columns: [
+                {"data": "id",},
+                {"data": "name",},
+                {"data": "remarks",},
+                {"data": "status",},
+            ],
+        })
+
+        //资产账户表初始化
+        assetAccount.DataTable({
+            //中文
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "ajax": "{:url('asset/api/getAssetAccountList')}",
+            columns: [
+                {"data": "id",},
+                {"data": "pid",},
+                {"data": "name",},
+                {"data": "remarks",},
+                {"data": "status",},
+            ],
+            "columnDefs": [
+                {"visible": false, "targets": 1}
+            ],
+            "order": [[1, 'asc']],
+            "displayLength": 25,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                //获取当前页面上的列，并保存其长度(也就是列的数量)
+                var columsLength = api.columns({page: 'current'}).nodes().length;
+                var last = null;
+                api.column(1, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="' + columsLength + '">' + group + '</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            },
+        });
+        // 资产账户表 按分组排序
+        assetAccount.children('tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 1 && currentOrder[1] === 'asc') {
+                table.order([1, 'desc']).draw();
+            } else {
+                table.order([1, 'asc']).draw();
+            }
+        });
+
+
+        //添加资产账户
+        $("#addAssetAccountButton").on('click', function () {
+            //添加到账户表
+            kwok.formAjaxSubmit($('#addAssetAccountForm'),"{:url('asset/api/addAssetAccount')}");
+            //延时3秒执行更新操作
+            setTimeout(function (){
+                //更新资产账户表
+                assetAccount.DataTable().ajax.reload();
+                //更新资产账户分类表
+                assetAccountType.DataTable().ajax.reload();
+                //更新表单选择框数据
+                kwok.selectAjaxUpdate($('#addAssetAccountFormSelect'),"{:url('asset/api/getAssetAccountPidList')}","<option value='0'>无父级(添加账户分类)</option>")
+            }, 1000);
+        })
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#btn_add_asset_account").on('click', function () {
+            // alert($('#form_add_asset_account').serialize());
+            $.ajax({
+                type: 'post',
+                //添加资产类型分类
+                url: "{:url('asset/api/addAssetAccount')}",
+                data: $('#form_add_asset_account').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        dialog.msg(data.message);
+                        $("#form_add_asset_account")[0].reset();
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        })
+
+        $('#update_asset_account_type_list').click(function(){
+            //更新资产账户类型选择列表
+            kwok.selectAjaxUpdate('#select_asset_account_type_list',"{:url('asset/api/getAssetAccountTypeList')}");
+            return 1;
+            $.ajax({
+                cache:false,
+                type: 'post',
+                //添加资产类型分类
+                url: "{:url('asset/api/getAssetAccountTypeList')}",
+                dataType: 'json',
+                timeout:3000,
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#select_asset_account_type_list').empty();
+                        // console.log(data['data'].length);
+                        var arr = data['data'];
+                        var count = arr.length;
+                        // alert(data);
+                        var i = 0;
+                        var temp_dom = "";
+                        for(i=0;i<count;i++){
+                            temp_dom+="<option value='"+arr[i].id+"'>"+arr[i].id+" ："+arr[i].name+"</option>";
+                        }
+                        $('#select_asset_account_type_list').append(temp_dom);
+                        // $("#select_asset_account_type_list").append("<option value='"+data[i].roleId+"'>"+data[i].roleName+"</option>");
+                        $("#select_asset_account_type_list").selectpicker("refresh");
+                        dialog.msg('更新账户类别成功');
+                        // $("#form_add_asset_account")[0].reset();
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        });
+    })
+
+
+</script>
+{/block}

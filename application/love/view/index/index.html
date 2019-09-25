@@ -19,11 +19,11 @@
 {block name="main"}
 <!--内容-->
 <section id="cd-timeline" class="cd-container">
-    {volist name="list" id="vo"}
+    {volist name="love_list" id="vo"}
     <div class="cd-timeline-block">
-        <div class="cd-timeline-img cd-text" style="background: {$type[($vo.type_id-1)]['div_background']}">
+        <div class="cd-timeline-img cd-text" style="background: {$love_type[($vo.type_id-1)]['div_background']}">
             <div class="i-father-div">
-                {$type[($vo.type_id-1)]['type']|raw}
+                {$love_type[($vo.type_id-1)]['type']|raw}
             </div>
             <!-- <img src="__LOVE-INDEX__/img/cd-icon-text.svg" alt="text"> -->
         </div>
@@ -37,7 +37,7 @@
 </section>
 
 <div id="render">
-    {$list->render()|raw}
+    {$love_list->render()|raw}
 </div>
 
 

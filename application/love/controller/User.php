@@ -5,29 +5,53 @@
 
 namespace app\love\controller;
 
+//引入Session的静态代理
 use think\facade\Session;
 
+//引入基础控制器
 use app\common\controller\Base;
 
 class User extends Base
 {
-    //注册页面
+    //由于前置操作不能传入参数，所以不能使用前置操作来检测是否登录
+
+    /**
+     * 注册页面
+     * @return mixed
+     */
     public function register()
     {
-        $this->logined('已经登录,请勿重复注册');
+        $this->notLoggedIn('已经登录,禁止重复注册');
         $this->assign('title','注册');
         return $this->fetch();
     }
 
-    //登录页面
+    /**
+     * 登录页面
+     * @return mixed
+     */
     public function login()
     {
-        $this->logined();
+        $this->notLoggedIn('当前已经登陆,请勿重复登录');
         $this->assign('title','登录');
         return $this->fetch();
     }
 
-    //退出登录
+    /**
+     * 找回密码页面
+     * @return mixed
+     */
+    public function password()
+    {
+        $this->notLoggedIn('已经登录,无需找回密码');
+        $this->assign('title','找回密码');
+        return $this->fetch();
+    }
+
+    /**
+     * 退出登录
+     * @return string 提示消息
+     */
     public function logout()
     {
         //清除Session
@@ -40,14 +64,6 @@ class User extends Base
         }else{
             return show(0,'退出失败');
         }
-    }
-
-    //找回密码页面
-    public function password()
-    {
-        $this->logined('已经登录,无需找回密码');
-        $this->assign('title','找回密码');
-        return $this->fetch();
     }
 
 }

@@ -30,7 +30,7 @@
             // alert($('#login').serialize());
             $.ajax({
                 type: 'post',
-                url: "{:url('user/user/loginCheck')}",
+                url: "{:url('user/api/login')}",
                 data: $('#login').serialize(),
                 dataType: 'json',
                 success: function (data) {

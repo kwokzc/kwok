@@ -1,0 +1,956 @@
+{extend name="layout/base" /}
+
+{block name="title"}资产分类管理{/block}
+
+{block name="content"}
+<!-- 开始 内容 -->
+<div class="content">
+
+    <!-- 开始 页面头部 -->
+    <div class="page-header">
+        <h1 class="title">总览</h1>
+        <ol class="breadcrumb">
+            <li class="active">全系统总览面板</li>
+        </ol>
+
+        <!-- 开始 页面头部右侧功能盒子 -->
+        <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+        </div>
+        <!-- 结束 页面头部右侧功能盒子 -->
+
+    </div>
+    <!-- 结束 页面头部 -->
+
+
+    <!-- 开始 介绍 -->
+    <div class="row presentation">
+
+        <div class="col-lg-8 col-md-6 titles">
+            <span class="icon color14-bg"><i class="fa fa-align-left"></i></span>
+            <h1>资产分类管理</h1>
+            <h4>资产分类、资产属性、账户管理 展示和编辑</h4>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <ul class="list-unstyled list">
+                <li><i class="fa fa-check"></i>Easy to Edit
+                <li>
+                <li><i class="fa fa-check"></i>5 Layout Options
+                <li>
+                <li><i class="fa fa-check"></i>Based on <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
+                <li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 结束 介绍 -->
+
+
+    <!-- 开始 主要内容 -->
+    <div class="container-padding">
+
+
+        <!-- Start Row -->
+        <div class="row">
+
+            <!-- 开始 资产账户分类表 -->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        资产账户分类表
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <p>For basic styling&mdash;light padding and only horizontal dividers&mdash;add the base class <code>.table</code> to any <code>&lt;table&gt;</code>. It may seem super redundant, but given the widespread use of tables for other plugins like calendars and date pickers, we've opted to isolate our custom table styles.</p>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>类型名称</td>
+                                <td>备注信息</td>
+                                <td>当前状态</td>
+                                <td class="text-center"><i class="fa fa-trash"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td># <b>9652</b></td>
+                                <td>支付宝</td>
+                                <td>阿里巴巴支付宝账户</td>
+                                <td>启用</td>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox11" type="checkbox"><label for="checkbox1"></label></div></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 结束 资产账户分类表 -->
+
+            <!-- 开始 资产账户展示表 -->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        资产账户展示表
+                    </div>
+                    <div class="panel-body table-responsive">
+
+                        <a href="#" data-toggle="modal" data-target="#div_add_asset_account">添加资产账户</a>
+                        <div class="modal fade" id="div_add_asset_account" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">添加资产账户</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form class="form-horizontal" id="form_add_asset_account">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">名称</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">分类</label>
+                                                <div class="col-sm-6">
+                                                    <select class="selectpicker" name="pid" id="select_asset_account_type_list">
+                                                        {volist name="asset_account_type_list" id="data"}
+                                                        <option value="{$data.id}">{$data.id} ：{$data.name}</option>
+                                                        {/volist}
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <button type="button" class="btn btn-default" id="update_asset_account_type_list">更新</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">备注</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="3" name="remarks"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                                    <input name="status" id="checkbox_add_asset_account" type="checkbox" checked>
+                                                    <label for="checkbox_add_asset_account">是否可用</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-default" id="btn_add_asset_account" data-dismiss="modal">提交</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" data-toggle="modal" data-target="#div_add_asset_account_type">添加资产账户分类</a>
+                        <div class="modal fade" id="div_add_asset_account_type" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">添加资产账户分类</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form class="form-horizontal" id="form_add_asset_account_type">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">名称</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">备注</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="3" name="remarks"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                                    <input name="status" id="checkbox_add_asset_account_type" type="checkbox" checked>
+                                                    <label for="checkbox_add_asset_account_type">是否可用</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-default" id="btn_add_asset_account_type" data-dismiss="modal">提交</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <table id="example" class="table display">
+                            <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>分类</td>
+                                <td>账号</td>
+                                <td>备注</td>
+                                <td>状态</td>
+                                <td>创建时间</td>
+                                <td class="text-center"><i class="fa fa-trash"></i></td>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>ID</th>
+                                <th>分类</th>
+                                <th>账号</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                                <th>创建时间</th>
+                                <th class="text-center"><i class="fa fa-trash"></i></th>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            {volist name="asset_account_list" id="data"}
+                            <tr>
+                                <td>{$data.id}</td>
+                                <td>{$data.pid}</td>
+                                <td>{$data.name}</td>
+                                <td>{$data.remarks}</td>
+                                <td>{$data.status}</td>
+                                <td>{$data.create_time}</td>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox111" type="checkbox"><label for="checkbox1"></label></div></td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 结束 资产账户展示表 -->
+
+            <!-- 开始 资产账户展示表 -->
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        资产账户展示表
+                    </div>
+                    <div class="panel-body table-responsive">
+                        <p>For basic styling&mdash;light padding and only horizontal dividers&mdash;add the base class <code>.table</code> to any <code>&lt;table&gt;</code>. It may seem super redundant, but given the widespread use of tables for other plugins like calendars and date pickers, we've opted to isolate our custom table styles.</p>
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>类型名称</td>
+                                <td>备注信息</td>
+                                <td>当前状态</td>
+                                <td class="text-center"><i class="fa fa-trash"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td># <b>9652</b></td>
+                                <td>支付宝</td>
+                                <td>阿里巴巴支付宝账户</td>
+                                <td>启用</td>
+                                <td class="text-center"><div class="checkbox margin-t-0"><input id="checkbox1" type="checkbox"><label for="checkbox1"></label></div></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 结束 资产账户展示表 -->
+
+
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        Basic Form
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="input1" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="input1">
+                            </div>
+                            <div class="form-group">
+                                <label for="input2" class="form-label">Surname</label>
+                                <input type="text" class="form-control" id="input2">
+                            </div>
+                            <div class="form-group">
+                                <label for="input3" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="input3">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control" rows="3" id="textarea1"></textarea>
+                            </div>
+                            <div class="checkbox checkbox-primary">
+                                <input id="checkbox102" type="checkbox" checked>
+                                <label for="checkbox102">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- 表单模板 缩小版 -->
+            <div class="col-md-12 col-lg-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        添加资产账户分类
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input11">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">父级</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                    <input id="checkbox103" type="checkbox" checked>
+                                    <label for="checkbox103">是否可用</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">提交</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 表单模板 -->
+            <div class="col-md-12 col-lg-6">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        添加资产账户分类
+                        <ul class="panel-tools">
+                            <li><a class="icon minimise-tool"><i class="fa fa-minus"></i></a></li>
+                            <li><a class="icon expand-tool"><i class="fa fa-expand"></i></a></li>
+                            <li><a class="icon closed-tool"><i class="fa fa-times"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-horizontal">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="input12">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">父级</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label form-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                    <input id="checkbox104" type="checkbox" checked>
+                                    <label for="checkbox103">是否可用</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">提交</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 添加资产账户分类面板 -->
+            <div class="col-md-12 col-lg-4">
+                <div class="panel panel-transparent">
+
+                    <div class="panel-title">
+                        添加资产账户分类
+                    </div>
+
+                    <div class="panel-body">
+                        <!-- Start Modal Code -->
+
+                        <!-- Link -->
+                        <a href="#" class="modalicon" data-toggle="modal" data-target="#add_asset_account_classification">
+                            <img src="__KWOK-INDEX__/img/modalicons/normal.png" alt="img" style="width:50%;">
+                        </a>
+
+                        <!-- 窗口 -->
+                        <div class="modal fade" id="add_asset_account_classification1" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">添加资产账户分类</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">名称</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="add_asset_account_classification_name1">
+                                                </div>
+                                            </div>
+                                            <!-- 分组选择菜单
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">父级</label>
+                                                <div class="col-sm-8">
+                                                    <select class="selectpicker">
+                                                        <optgroup label="Marketplace">
+                                                            <option>Themeforest</option>
+                                                            <option>Codecanyon</option>
+                                                            <option>Photodune</option>
+                                                            <option>Graphicriver</option>
+                                                            <option>Activeden</option>
+                                                        </optgroup>
+                                                        <optgroup label="Community">
+                                                            <option>Forums</option>
+                                                            <option>Blog</option>
+                                                            <option>Meetups</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            -->
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">备注</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="3"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                                    <input id="add_asset_account_classification_status1" type="checkbox" checked>
+                                                    <label for="checkbox103">是否可用</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- 表单原始提交按钮
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">提交</button>
+                                                </div>
+                                            </div>
+                                            -->
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-default">提交</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Moda Code -->
+                    </div>
+
+                </div>
+            </div>
+            <!-- 添加资产账户面板 -->
+            <div class="col-md-12 col-lg-4">
+                <div class="panel panel-transparent">
+
+                    <div class="panel-title">
+                        BASIC
+                    </div>
+
+                    <div class="panel-body">
+                        <!-- Start Modal Code -->
+
+                        <!-- Link -->
+                        <a href="#" class="modalicon" data-toggle="modal" data-target="#myModal">
+                            <img src="__KWOK-INDEX__/img/modalicons/normal.png" alt="img" style="width:50%;">
+                        </a>
+
+                        <!-- 窗口 -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">弹窗表单</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <form class="form-horizontal">
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">名称</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" id="input14">
+                                                </div>
+                                            </div>
+
+                                            <!--                                            <div class="form-group">-->
+                                            <!--                                                <label class="col-sm-2 control-label form-label">父级</label>-->
+                                            <!--                                                <div class="col-sm-10">-->
+                                            <!--                                                    <input type="text" class="form-control">-->
+                                            <!--                                                </div>-->
+                                            <!--                                            </div>-->
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">父级</label>
+                                                <div class="col-sm-8">
+                                                    <select class="selectpicker">
+                                                        <optgroup label="Marketplace">
+                                                            <option>Themeforest</option>
+                                                            <option>Codecanyon</option>
+                                                            <option>Photodune</option>
+                                                            <option>Graphicriver</option>
+                                                            <option>Activeden</option>
+                                                        </optgroup>
+                                                        <optgroup label="Community">
+                                                            <option>Forums</option>
+                                                            <option>Blog</option>
+                                                            <option>Meetups</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label form-label">备注</label>
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control" rows="3"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10 checkbox checkbox-primary padding-l-35">
+                                                    <input id="checkbox105" type="checkbox" checked>
+                                                    <label for="checkbox103">是否可用</label>
+                                                </div>
+                                            </div>
+
+                                            <!-- 表单原始提交按钮
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">提交</button>
+                                                </div>
+                                            </div>
+                                            -->
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                <button type="button" class="btn btn-default">提交</button>
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- End Moda Code -->
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End Row -->
+
+
+        <!-- Start row -->
+        <div class="row">
+
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        Inline Form
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="example1" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="example1" placeholder="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <label for="example2" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="example2"
+                                       placeholder="jane.doe@example.com">
+                            </div>
+                            <button type="submit" class="btn btn-default">Send</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-12">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        Inline Form without Label
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="exampleInputEmail2"
+                                       placeholder="jane.doe@example.com">
+                            </div>
+                            <button type="submit" class="btn btn-default">Send invitation</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End row -->
+
+
+        <!-- Start Row -->
+        <div class="row">
+
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        Line Style
+                    </div>
+
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="example3" class="form-label">Name</label>
+                                <input type="text" class="form-control form-control-line" id="example3">
+                            </div>
+                            <div class="form-group">
+                                <label for="example4" class="form-label">Surname</label>
+                                <input type="text" class="form-control form-control-line" id="example4">
+                            </div>
+                            <div class="form-group">
+                                <label for="example5" class="form-label">Password</label>
+                                <input type="password" class="form-control form-control-line" id="example5">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Message</label>
+                                <textarea class="form-control form-control-line" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+
+                    <div class="panel-title">
+                        Fieldset
+                    </div>
+
+                    <div class="panel-body">
+                        <form class="fieldset-form">
+                            <fieldset>
+                                <legend>Create Your Account</legend>
+                                <div class="form-group">
+                                    <label for="example10" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="example10">
+                                </div>
+                                <div class="form-group">
+                                    <label for="example11" class="form-label">Surname</label>
+                                    <input type="text" class="form-control" id="example11">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </fieldset>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        <!-- End Row -->
+
+
+    </div>
+    <!-- 结束 主要内容 -->
+
+
+    <!-- 开始 页脚 -->
+    {include file="layout/footer" /}
+    <!-- 结束 页脚 -->
+
+
+</div>
+<!-- 结束 内容 -->
+{/block}
+
+{block name="bottom-js"}
+
+<script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/js/dialog.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/kwok.js"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script type="text/javascript" src="__KWOK-INDEX__/js/bootstrap-select/bootstrap-select.js"></script>
+
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="__INDEX__/js/datatables/datatables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            "columnDefs": [
+                {"visible": false, "targets": 1}
+            ],
+            "order": [[1, 'asc']],
+            "displayLength": 25,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                //获取当前页面上的列，并保存其长度(也就是列的数量)
+                var columsLength = api.columns({page: 'current'}).nodes().length;
+                var last = null;
+
+                api.column(1, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="' + columsLength + '">' + group + '</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            },
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            }
+        });
+
+        // Order by the grouping
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                table.order([2, 'desc']).draw();
+            } else {
+                table.order([2, 'asc']).draw();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $("#btn_add_asset_account_type").on('click', function () {
+            // alert($('#form_add_asset_account_type').serialize());
+            //添加资产类型分类
+            $.ajax({
+                type: 'post',
+                url: "{:url('asset/api/addAssetAccountType')}",
+                data: $('#form_add_asset_account_type').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        kwok.msg(data.message);
+                        $("#form_add_asset_account_type")[0].reset();
+                    } else {
+                        kwok.error(data.message);
+                    }
+                }
+
+            })
+            setTimeout(function (){
+                kwok.selectAjaxUpdate('#select_asset_account_type_list',"{:url('asset/api/getAssetAccountTypeList')}");
+            }, 3000);
+            //同时更新资产账户类型选择列表
+        })
+
+        $("#btn_add_asset_account").on('click', function () {
+            // alert($('#form_add_asset_account').serialize());
+            $.ajax({
+                type: 'post',
+                //添加资产类型分类
+                url: "{:url('asset/api/addAssetAccount')}",
+                data: $('#form_add_asset_account').serialize(),
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == 1) {
+                        dialog.msg(data.message);
+                        $("#form_add_asset_account")[0].reset();
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        })
+
+        $('#update_asset_account_type_list').click(function(){
+            //更新资产账户类型选择列表
+            kwok.selectAjaxUpdate('#select_asset_account_type_list',"{:url('asset/api/getAssetAccountTypeList')}");
+            return 1;
+            $.ajax({
+                cache:false,
+                type: 'post',
+                //添加资产类型分类
+                url: "{:url('asset/api/getAssetAccountTypeList')}",
+                dataType: 'json',
+                timeout:3000,
+                success: function (data) {
+                    if (data.status == 1) {
+                        $('#select_asset_account_type_list').empty();
+                        // console.log(data['data'].length);
+                        var arr = data['data'];
+                        var count = arr.length;
+                        // alert(data);
+                        var i = 0;
+                        var temp_dom = "";
+                        for(i=0;i<count;i++){
+                            temp_dom+="<option value='"+arr[i].id+"'>"+arr[i].id+" ："+arr[i].name+"</option>";
+                        }
+                        $('#select_asset_account_type_list').append(temp_dom);
+                        // $("#select_asset_account_type_list").append("<option value='"+data[i].roleId+"'>"+data[i].roleName+"</option>");
+                        $("#select_asset_account_type_list").selectpicker("refresh");
+                        dialog.msg('更新账户类别成功');
+                        // $("#form_add_asset_account")[0].reset();
+                    } else {
+                        dialog.error(data.message);
+                    }
+                }
+
+            })
+        });
+    })
+
+
+</script>
+{/block}

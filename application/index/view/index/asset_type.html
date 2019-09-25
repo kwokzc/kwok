@@ -1,0 +1,330 @@
+{extend name="layout/base" /}
+
+{block name="title"}主页{/block}
+
+{block name="content"}
+<!-- 开始 内容 -->
+<div class="content">
+
+    <!-- 开始 页面头部 -->
+    <div class="page-header">
+        <h1 class="title">资产类型</h1>
+        <ol class="breadcrumb">
+            <li class="active">资产类型管理</li>
+        </ol>
+
+        <!-- 开始 页面头部右侧功能盒子 -->
+        <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+        </div>
+        <!-- 结束 页面头部右侧功能盒子 -->
+
+    </div>
+    <!-- 结束 页面头部 -->
+
+    <!-- 开始 介绍 -->
+    <div class="row presentation">
+
+        <div class="col-lg-8 col-md-6 titles">
+            <span class="icon color10-bg"><i class="fa fa-table"></i></span>
+            <h1>Data Tables</h1>
+            <h4>Highly flexible tool, based upon the foundations of progressive enhancement<br> and will add advanced
+                interaction controls to any HTML table.</h4>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <ul class="list-unstyled list">
+                <li><i class="fa fa-check"></i>Easy to Use
+                <li>
+                <li><i class="fa fa-check"></i>Group Options
+                <li>
+                <li><i class="fa fa-check"></i><a href="http://www.datatables.net/" target="_blank">DataTables</a>
+                <li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 结束 介绍 -->
+
+    <!-- 开始 主要内容 -->
+    <div class="container-padding">
+
+
+        <!-- Start Row -->
+        <div class="row">
+
+            <!-- Start Panel -->
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        Row grouping
+                    </div>
+                    <div class="panel-body table-responsive">
+
+                        <table id="example" class="table display">
+                            <thead>
+                            <tr>
+                                <th>资产类型ID</th>
+                                <th>代码</th>
+                                <th>交易机制</th>
+                                <th>交易所</th>
+                                <th>名字</th>
+                                <th>资产类型</th>
+                                <th>资产属性</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                                <th>Salary</th>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            <tr>
+                                <td>518000</td>
+                                <td>场内</td>
+                                <td>上海交易所</td>
+                                <td>黄近</td>
+                                <td>ETF</td>
+                                <td>ETF</td>
+                                <td>商品</td>
+                            </tr>
+                            <tr>
+                                <td>518000</td>
+                                <td>场内</td>
+                                <td>上海交易所</td>
+                                <td>黄近</td>
+                                <td>ETF</td>
+                                <td>商品</td>
+                            </tr>
+                            <tr>
+                                <td>518111</td>
+                                <td>场内</td>
+                                <td>深圳交易所</td>
+                                <td>白银</td>
+                                <td>ETF</td>
+                                <td>商品</td>
+                            </tr>
+                            <tr>
+                                <td>518111</td>
+                                <td>场内</td>
+                                <td>深圳交易所</td>
+                                <td>白银</td>
+                                <td>ETF</td>
+                                <td>商品</td>
+                            </tr>
+                            <tr>
+                                <td>Cedric Kelly</td>
+                                <td>Senior Javascript Developer</td>
+                                <td>Edinburgh</td>
+                                <td>22</td>
+                                <td>2012/03/29</td>
+                                <td>$433,060</td>
+                            </tr>
+                            <tr>
+                                <td>518000</td>
+                                <td>Accountant</td>
+                                <td>上海交易所</td>
+                                <td>33</td>
+                                <td>2008/11/28</td>
+                                <td>$162,700</td>
+                            </tr>
+                            <tr>
+                                <td>Brielle Williamson</td>
+                                <td>Integration Specialist</td>
+                                <td>New York</td>
+                                <td>61</td>
+                                <td>2012/12/02</td>
+                                <td>$372,000</td>
+                            </tr>
+                            <tr>
+                                <td>Herrod Chandler</td>
+                                <td>Sales Assistant</td>
+                                <td>San Francisco</td>
+                                <td>59</td>
+                                <td>2012/08/06</td>
+                                <td>$137,500</td>
+                            </tr>
+                            <tr>
+                                <td>Rhona Davidson</td>
+                                <td>Integration Specialist</td>
+                                <td>Tokyo</td>
+                                <td>55</td>
+                                <td>2010/10/14</td>
+                                <td>$327,900</td>
+                            </tr>
+                            <tr>
+                                <td>Colleen Hurst</td>
+                                <td>Javascript Developer</td>
+                                <td>San Francisco</td>
+                                <td>39</td>
+                                <td>2009/09/15</td>
+                                <td>$205,500</td>
+                            </tr>
+                            <tr>
+                                <td>Jena Gaines</td>
+                                <td>Office Manager</td>
+                                <td>London</td>
+                                <td>30</td>
+                                <td>2008/12/19</td>
+                                <td>$90,560</td>
+                            </tr>
+                            <tr>
+                                <td>Charde Marshall</td>
+                                <td>Regional Director</td>
+                                <td>San Francisco</td>
+                                <td>36</td>
+                                <td>2008/10/16</td>
+                                <td>$470,600</td>
+                            </tr>
+                            <tr>
+                                <td>Michael Silva</td>
+                                <td>Marketing Designer</td>
+                                <td>London</td>
+                                <td>66</td>
+                                <td>2012/11/27</td>
+                                <td>$198,500</td>
+                            </tr>
+                            <tr>
+                                <td>Paul Byrd</td>
+                                <td>Chief Financial Officer (CFO)</td>
+                                <td>New York</td>
+                                <td>64</td>
+                                <td>2010/06/09</td>
+                                <td>$725,000</td>
+                            </tr>
+                            <tr>
+                                <td>Gloria Little</td>
+                                <td>Systems Administrator</td>
+                                <td>New York</td>
+                                <td>59</td>
+                                <td>2009/04/10</td>
+                                <td>$237,500</td>
+                            </tr>
+                            <tr>
+                                <td>Bradley Greer</td>
+                                <td>Software Engineer</td>
+                                <td>London</td>
+                                <td>41</td>
+                                <td>2012/10/13</td>
+                                <td>$132,000</td>
+                            </tr>
+                            <tr>
+                                <td>Jennifer Chang</td>
+                                <td>Regional Director</td>
+                                <td>Singapore</td>
+                                <td>28</td>
+                                <td>2010/11/14</td>
+                                <td>$357,650</td>
+                            </tr>
+                            <tr>
+                                <td>Fiona Green</td>
+                                <td>Chief Operating Officer (COO)</td>
+                                <td>San Francisco</td>
+                                <td>48</td>
+                                <td>2010/03/11</td>
+                                <td>$850,000</td>
+                            </tr>
+                            <tr>
+                                <td>Shou Itou</td>
+                                <td>Regional Marketing</td>
+                                <td>Tokyo</td>
+                                <td>20</td>
+                                <td>2011/08/14</td>
+                                <td>$163,000</td>
+                            </tr>
+                            <tr>
+                                <td>Suki Burks</td>
+                                <td>Developer</td>
+                                <td>London</td>
+                                <td>53</td>
+                                <td>2009/10/22</td>
+                                <td>$114,500</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Panel -->
+
+
+        </div>
+        <!-- End Row -->
+
+
+    </div>
+    <!-- 结束 主要内容 -->
+
+
+    <!-- 开始 页脚 -->
+    {include file="layout/footer" /}
+    <!-- 结束 页脚 -->
+
+
+</div>
+<!-- 结束 内容 -->
+{/block}
+
+{block name="bottom-js"}
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="__INDEX__/js/datatables/datatables.min.js"></script>
+
+
+
+<script>
+    $(document).ready(function () {
+        var table = $('#example').DataTable({
+            "columnDefs": [
+                {"visible": false, "targets": 2}
+            ],
+            "order": [[2, 'asc']],
+            //默认一页显示长度数量
+            "displayLength": 25,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                var last = null;
+
+                api.column(2, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="6">' + group + '</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            }
+        });
+
+        // 按分组排序
+        $('#example tbody').on('click', 'tr.group', function () {
+            var currentOrder = table.order()[0];
+            if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                table.order([2, 'desc']).draw();
+            } else {
+                table.order([2, 'asc']).draw();
+            }
+        });
+    });
+</script>
+
+{/block}

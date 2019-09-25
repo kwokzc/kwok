@@ -1,0 +1,250 @@
+{extend name="layout/base" /}
+
+{block name="title"}主页{/block}
+
+{block name="content"}
+<!-- 开始 内容 -->
+<div class="content">
+
+    <!-- 开始 页面头部 -->
+    <div class="page-header">
+        <h1 class="title">基金网格交易系统</h1>
+        <ol class="breadcrumb">
+            <li class="active">ETF网格交易管理</li>
+        </ol>
+
+        <!-- 开始 页面头部右侧功能盒子 -->
+        <div class="right">
+            <div class="btn-group" role="group" aria-label="...">
+                <a href="index.html" class="btn btn-light">Dashboard</a>
+                <a href="#" class="btn btn-light"><i class="fa fa-refresh"></i></a>
+                <a href="#" class="btn btn-light"><i class="fa fa-search"></i></a>
+                <a href="#" class="btn btn-light" id="topstats"><i class="fa fa-line-chart"></i></a>
+            </div>
+        </div>
+        <!-- 结束 页面头部右侧功能盒子 -->
+
+    </div>
+    <!-- 结束 页面头部 -->
+
+    <!-- 开始 介绍 -->
+    <div class="row presentation">
+
+        <div class="col-lg-8 col-md-6 titles">
+            <span class="icon color10-bg"><i class="fa fa-table"></i></span>
+            <h1>基金网格交易系统</h1>
+            <h4>记录每一笔基金网格交易记录，自动计算并提醒买入卖出<br>有效的解决基金网格计划中容易混乱和没有及时买入卖出</h4>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <ul class="list-unstyled list">
+                <li><i class="fa fa-check"></i>添加
+                <li>
+                <li><i class="fa fa-check"></i>Group Options
+                <li>
+                <li><i class="fa fa-check"></i><a href="http://www.datatables.net/" target="_blank">DataTables</a>
+                <li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 结束 介绍 -->
+
+    <!-- 开始 主要内容 -->
+    <div class="container-padding">
+
+
+        <!-- Start Row -->
+        <div class="row">
+
+            <!-- Start Panel -->
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        ETF名称-当前价格(红绿色提示当前是否有可操作项目)
+                    </div>
+                    <div class="panel-body table-responsive">
+
+                        <table id="example" class="table display">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>品种</th>
+                                <th>种类</th>
+                                <th>买入档位</th>
+                                <th>卖出档位</th>
+                                <th>递增比例</th>
+                                <th>买入金额</th>
+                                <th>买入数量</th>
+                                <th>买入价格</th>
+                                <th>实时价格</th>
+                                <th>卖出价格</th>
+                                <th>卖出数量</th>
+                                <th>卖出金额</th>
+                                <th>盈亏金额</th>
+                                <th>盈亏比例</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>品种</th>
+                                <th>种类</th>
+                                <th>买入档位</th>
+                                <th>买入价格</th>
+                                <th>买入数量</th>
+                                <th>买入金额</th>
+                                <th>递增比例</th>
+                                <th>卖出档位</th>
+                                <th>卖出价格</th>
+                                <th>卖出数量</th>
+                                <th>卖出金额</th>
+                                <th>盈亏金额</th>
+                                <th>盈亏比例</th>
+                                <th>备注</th>
+                            </tr>
+                            </tfoot>
+
+                            <tbody>
+                            <tr>
+                                <td>6</td>
+                                <td>红利ETF(转存)</td>
+                                <td>小网</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>100</td>
+                                <td>0元</td>
+                                <td>转存</td>
+                                <td>1.05</td>
+                                <td>1.05</td>
+                                <td>2000</td>
+                                <td>2100</td>
+                                <td>0</td>
+                                <td>0%</td>
+                                <td>来自id为5的卖出留存100份</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>红利ETF</td>
+                                <td>小网</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>2100</td>
+                                <td>2100元</td>
+                                <td>0%</td>
+                                <td>1.05</td>
+                                <td>1.05</td>
+                                <td>2000</td>
+                                <td>2100</td>
+                                <td>0</td>
+                                <td>0%</td>
+                                <td>留存100份转入长期;id为6</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>医药ETF</td>
+                                <td>1</td>
+                                <td>10%</td>
+                                <td>0.991</td>
+                                <td>2100</td>
+                                <td>2081.1元</td>
+                                <td>1.041</td>
+                                <td></td>
+                                <td></td>
+                                <td>40</td>
+                                <td>5%</td>
+                                <td>未达到交易价格</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>证券ETF</td>
+                                <td>1</td>
+                                <td>10%</td>
+                                <td>0.991</td>
+                                <td>2100</td>
+                                <td>2081.1元</td>
+                                <td>1.041</td>
+                                <td></td>
+                                <td></td>
+                                <td>40</td>
+                                <td>5%</td>
+                                <td>未达到交易价格</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>证券ETF</td>
+                                <td>1</td>
+                                <td>10%</td>
+                                <td>0.991</td>
+                                <td>2100</td>
+                                <td>2081.1元</td>
+                                <td>1.041</td>
+                                <td></td>
+                                <td></td>
+                                <td>50</td>
+                                <td>5%</td>
+                                <td>未达到交易价格</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>证券ETF</td>
+                                <td>1</td>
+                                <td>10%</td>
+                                <td>0.991</td>
+                                <td>2100</td>
+                                <td>2081.1元</td>
+                                <td>1.041</td>
+                                <td></td>
+                                <td></td>
+                                <td>60</td>
+                                <td>5%</td>
+                                <td>未达到交易价格</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <!-- End Panel -->
+
+        </div>
+        <!-- End Row -->
+
+
+    </div>
+    <!-- 结束 主要内容 -->
+
+
+    <!-- 开始 页脚 -->
+    {include file="layout/footer" /}
+    <!-- 结束 页脚 -->
+
+
+</div>
+<!-- 结束 内容 -->
+{/block}
+
+{block name="bottom-js"}
+<script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/js/dialog.js"></script>-->
+<script type="text/javascript" src="__STATIC__/js/kwok.js"></script>
+
+<!-- ================================================
+Bootstrap Select
+================================================ -->
+<script type="text/javascript" src="__STATIC__/js/bootstrap-select/bootstrap-select.js"></script>
+<!-- ================================================
+Data Tables
+================================================ -->
+<script src="__STATIC__/js/datatables/datatables.min.js"></script>
+
+<script>
+    $(document).ready(kwok.dataTablesInit($('#example'),));
+</script>
+
+{/block}

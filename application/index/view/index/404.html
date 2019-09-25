@@ -1,0 +1,21 @@
+{extend name="layout/code" /}
+{block name="title"}404{/block}
+{block name="main"}
+<div class="error-pages">
+
+    <img src="__KWOK-INDEX__/img/404.png" alt="404" class="icon" width="400" height="260">
+    <h1>抱歉，没有找到此页面</h1>
+    <h4>此页面不存在，可能被移动或删除。</h4>
+
+    <form>
+        <input type="text" class="form-control" placeholder="Search for Page">
+        <i class="fa fa-search"></i>
+    </form>
+
+    <div class="bottom-links">
+        <a class="btn btn-default" onclick="javascript :history.back(-1);">返回上一页</a>
+        <a href="{:url('index')}" class="btn btn-light">回到主页</a>
+    </div>
+
+</div>
+{/block}
