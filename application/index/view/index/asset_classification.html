@@ -58,7 +58,52 @@
 
         <!-- Start Row -->
         <div class="row">
-            <div class="col-md-5 col-lg-5">
+
+            <!-- 资产品种表 -->
+            <div class="col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-title">资产品种列表</div>
+                    <div class="panel-body table-responsive">
+                        <table id="assetVarietyListTable" class="table display">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>类型</th>
+                                <th>简称</th>
+                                <th>全称</th>
+                                <th>交易所</th>
+                                <th>代码</th>
+                                <th>Api接口</th>
+                                <th>交易方式</th>
+                                <th>所属账户组</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>类型</th>
+                                <th>简称</th>
+                                <th>全称</th>
+                                <th>交易所</th>
+                                <th>代码</th>
+                                <th>Api接口</th>
+                                <th>交易方式</th>
+                                <th>所属账户组</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <!-- 资产账户表 -->
+            <div class="col-md-6 col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-title">
                         资产账号列表
@@ -90,6 +135,39 @@
 
                 </div>
             </div>
+            <!-- 资产分类表 -->
+            <div class="col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">资产品种列表</div>
+                    <div class="panel-body table-responsive">
+                        <table id="assetTypeListTable" class="table display">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>名称</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>名称</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- 添加账户或分类 -->
             <div class="col-md-3 col-lg-3">
                 <div class="panel panel-default">
@@ -212,6 +290,12 @@ Data Tables
         //资产账户表选择器
         var assetAccount = $('#assetAccountListTable');
 
+        //资产品种表选择器
+        var assetVariety = $('#assetVarietyListTable');
+
+        //资产分类表选择器
+        var assetType = $('#assetTypeListTable');
+
         //资产账户分类表选择器
         var assetAccountType = $('#assetAccountPidListTable');
 
@@ -308,6 +392,129 @@ Data Tables
                 });
             },
         });
+
+        //资产品种表初始化
+        assetVariety.DataTable({
+            //中文
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "ajax": "{:url('asset/api/getAssetVarietyList')}",
+            columns: [
+                {"data": "id",},
+                {"data": "type_id",},
+                {"data": "name",},
+                {"data": "full_name",},
+                {"data": "exchange",},
+                {"data": "code",},
+                {"data": "api",},
+                {"data": "means_of_transaction",},
+                {"data": "account_id",},
+                {"data": "remarks",},
+                {"data": "status",},
+            ],
+            "columnDefs": [
+                {"visible": false, "targets": 1}
+            ],
+            "order": [[1, 'asc']],
+            "displayLength": 25,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                //获取当前页面上的列，并保存其长度(也就是列的数量)
+                var columsLength = api.columns({page: 'current'}).nodes().length;
+                var last = null;
+                api.column(1, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="' + columsLength + '">' + group + '</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            },
+        });
+
+        //资产品种表初始化
+        assetType.DataTable({
+            //中文
+            language: {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                },
+                "oAria": {
+                    "sSortAscending": ": 以升序排列此列",
+                    "sSortDescending": ": 以降序排列此列"
+                }
+            },
+            "ajax": "{:url('asset/api/getAssetTypeList')}",
+            columns: [
+                {"data": "id",},
+                {"data": "pid",},
+                {"data": "name",},
+                {"data": "remarks",},
+                {"data": "status",},
+            ],
+            "columnDefs": [
+                {"visible": false, "targets": 1}
+            ],
+            "order": [[1, 'asc']],
+            "displayLength": 25,
+            "drawCallback": function (settings) {
+                var api = this.api();
+                var rows = api.rows({page: 'current'}).nodes();
+                //获取当前页面上的列，并保存其长度(也就是列的数量)
+                var columsLength = api.columns({page: 'current'}).nodes().length;
+                var last = null;
+                api.column(1, {page: 'current'}).data().each(function (group, i) {
+                    if (last !== group) {
+                        $(rows).eq(i).before(
+                            '<tr class="group"><td colspan="' + columsLength + '">' + group + '</td></tr>'
+                        );
+
+                        last = group;
+                    }
+                });
+            },
+        });
+
         // 资产账户表 按分组排序
         assetAccount.children('tbody').on('click', 'tr.group', function () {
             var currentOrder = table.order()[0];
@@ -334,67 +541,5 @@ Data Tables
             }, 1000);
         })
     });
-</script>
-
-<script>
-    $(function () {
-        $("#btn_add_asset_account").on('click', function () {
-            // alert($('#form_add_asset_account').serialize());
-            $.ajax({
-                type: 'post',
-                //添加资产类型分类
-                url: "{:url('asset/api/addAssetAccount')}",
-                data: $('#form_add_asset_account').serialize(),
-                dataType: 'json',
-                success: function (data) {
-                    if (data.status == 1) {
-                        dialog.msg(data.message);
-                        $("#form_add_asset_account")[0].reset();
-                    } else {
-                        dialog.error(data.message);
-                    }
-                }
-
-            })
-        })
-
-        $('#update_asset_account_type_list').click(function(){
-            //更新资产账户类型选择列表
-            kwok.selectAjaxUpdate('#select_asset_account_type_list',"{:url('asset/api/getAssetAccountTypeList')}");
-            return 1;
-            $.ajax({
-                cache:false,
-                type: 'post',
-                //添加资产类型分类
-                url: "{:url('asset/api/getAssetAccountTypeList')}",
-                dataType: 'json',
-                timeout:3000,
-                success: function (data) {
-                    if (data.status == 1) {
-                        $('#select_asset_account_type_list').empty();
-                        // console.log(data['data'].length);
-                        var arr = data['data'];
-                        var count = arr.length;
-                        // alert(data);
-                        var i = 0;
-                        var temp_dom = "";
-                        for(i=0;i<count;i++){
-                            temp_dom+="<option value='"+arr[i].id+"'>"+arr[i].id+" ："+arr[i].name+"</option>";
-                        }
-                        $('#select_asset_account_type_list').append(temp_dom);
-                        // $("#select_asset_account_type_list").append("<option value='"+data[i].roleId+"'>"+data[i].roleName+"</option>");
-                        $("#select_asset_account_type_list").selectpicker("refresh");
-                        dialog.msg('更新账户类别成功');
-                        // $("#form_add_asset_account")[0].reset();
-                    } else {
-                        dialog.error(data.message);
-                    }
-                }
-
-            })
-        });
-    })
-
-
 </script>
 {/block}
