@@ -62,7 +62,7 @@
             <!-- 资产品种表 -->
             <div class="col-md-12 col-lg-12">
                 <div class="panel panel-default">
-                    <div class="panel-title">资产品种列表</div>
+                    <div class="panel-title">资产品种表</div>
                     <div class="panel-body table-responsive">
                         <table id="assetVarietyListTable" class="table display">
                             <thead>
@@ -102,8 +102,49 @@
 
                 </div>
             </div>
+            <!-- 资产类型表 -->
+            <div class="col-md-4 col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-title">资产类型表</div>
+                    <div class="panel-body table-responsive">
+                        <table id="assetTypeListTable" class="table display">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>名称</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </thead>
+
+                            <tfoot>
+                            <tr>
+                                <th>Id</th>
+                                <th>分类</th>
+                                <th>名称</th>
+                                <th>备注</th>
+                                <th>状态</th>
+                            </tr>
+                            </tfoot>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-lg-4">
+                <div class="panel panel-default">
+                    <div class="panel-title">资产类型旭日图</div>
+                    <div id="echartsTest" style="width: 600px;height:400px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <!-- 资产账户表 -->
-            <div class="col-md-6 col-lg-6">
+            <div class="col-md-5 col-lg-5">
                 <div class="panel panel-default">
                     <div class="panel-title">
                         资产账号列表
@@ -135,39 +176,38 @@
 
                 </div>
             </div>
-            <!-- 资产分类表 -->
-            <div class="col-md-6 col-lg-6">
+            <!-- 账户分类列表 -->
+            <div class="col-md-4 col-lg-4">
                 <div class="panel panel-default">
-                    <div class="panel-title">资产品种列表</div>
-                    <div class="panel-body table-responsive">
-                        <table id="assetTypeListTable" class="table display">
-                            <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>分类</th>
-                                <th>名称</th>
-                                <th>备注</th>
-                                <th>状态</th>
-                            </tr>
-                            </thead>
 
-                            <tfoot>
-                            <tr>
-                                <th>Id</th>
-                                <th>分类</th>
-                                <th>名称</th>
-                                <th>备注</th>
-                                <th>状态</th>
-                            </tr>
-                            </tfoot>
-
-                        </table>
+                    <div class="panel-title">
+                        资产账户分类列表
                     </div>
+                    <table id="assetAccountPidListTable" class="table display">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>分类</th>
+                            <th>备注</th>
+                            <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>分类</th>
+                            <th>备注</th>
+                            <th>状态</th>
+                        </tr>
+                        </tfoot>
 
+                        <tbody>
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-        <div class="row">
+
             <!-- 添加账户或分类 -->
             <div class="col-md-3 col-lg-3">
                 <div class="panel panel-default">
@@ -221,37 +261,6 @@
 
                 </div>
             </div>
-            <!-- 账户分类列表 -->
-            <div class="col-md-4 col-lg-4">
-                <div class="panel panel-default">
-
-                    <div class="panel-title">
-                        资产账户分类列表
-                    </div>
-                    <table id="assetAccountPidListTable" class="table display">
-                        <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>分类</th>
-                            <th>备注</th>
-                            <th>状态</th>
-                        </tr>
-                        </thead>
-                        <tfoot>
-                        <tr>
-                            <th>Id</th>
-                            <th>分类</th>
-                            <th>备注</th>
-                            <th>状态</th>
-                        </tr>
-                        </tfoot>
-
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
         <!-- End Row -->
     </div>
@@ -272,6 +281,10 @@
 <script type="text/javascript" src="__STATIC__/js/layer/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/js/dialog.js"></script>
 <script type="text/javascript" src="__STATIC__/js/kwok.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/js/echarts-gl.js"></script>-->
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts-all-3.js"></script>
+
+
 
 <!-- ================================================
 Bootstrap Select
@@ -282,6 +295,7 @@ Bootstrap Select
 Data Tables
 ================================================ -->
 <script src="__INDEX__/js/datatables/datatables.min.js"></script>
+
 <script>
     $(document).ready(function(){
         //初始化表单下拉选择框
@@ -540,6 +554,35 @@ Data Tables
                 kwok.selectAjaxUpdate($('#addAssetAccountFormSelect'),"{:url('asset/api/getAssetAccountPidList')}","<option value='0'>无父级(添加账户分类)</option>")
             }, 1000);
         })
+
+
+
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('echartsTest'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'ECharts 入门示例'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: [5, 20, 36, 10, 10, 20]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
     });
 </script>
 {/block}
